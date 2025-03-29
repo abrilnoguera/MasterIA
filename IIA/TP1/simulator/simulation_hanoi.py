@@ -10,7 +10,6 @@ import sprites
 import synchronizer
 from constants import *
 
-
 # ----------------------------------------------
 # Sequence Loading
 # ----------------------------------------------
@@ -20,29 +19,21 @@ def load_configuration(file_path):
     with open(file_path, "r") as json_file:
         return json.load(json_file)
 
-
-# Load initial and sequence states
-initial_state = load_configuration("../initial_state.json")
-sequence = load_configuration("../sequence.json")
-
-# These two variables are important for the animator and the sequencer
-number_of_disks = sprites.obtain_number_of_disks(initial_state)
-disk_height = sprites.obtain_disks_height(number_of_disks)
-
-
-# ----------------------------------------------
-# Pygame Initialization
-# ----------------------------------------------
-
-# Initialize Pygame and create the display screen
-def initialize_pygame():
-    pygame.init()
-    return pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
-
-
 # Main game loop
-def main():
-    # Initialize Pygame
+def main(initial_state_file, sequence_file):
+    # Load initial and sequence states
+    initial_state = load_configuration(f"../{initial_state_file}")
+    sequence = load_configuration(f"../{sequence_file}")
+
+    # These two variables are important for the animator and the sequencer
+    number_of_disks = sprites.obtain_number_of_disks(initial_state)
+    disk_height = sprites.obtain_disks_height(number_of_disks)
+
+    # ----------------------------------------------
+    # Pygame Initialization
+    # ----------------------------------------------
+
+    # Initialize Pygame and create the display screen
     screen = initialize_pygame()
     clock = pygame.time.Clock()
     pygame.display.set_caption("Hanoi's tower simulation")
@@ -86,6 +77,10 @@ def main():
         # Limit the FPS by sleeping for the remainder of the frame time
         clock.tick(FPS)
 
+# Initialize Pygame
+def initialize_pygame():
+    pygame.init()
+    return pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 
 # Handle Pygame events
 def handle_events():
@@ -94,7 +89,23 @@ def handle_events():
             pygame.quit()
             sys.exit()
 
-
 # -----------
 if __name__ == "__main__":
-    main()
+    ## Valores por defecto
+    default_initial_state = "initial_state.json"
+    default_sequence = "sequence.json"
+    
+    # Asignar archivos según los argumentos (si se proporcionan)
+    if len(sys.argv) == 3:  # Si se pasan ambos archivos
+        initial_state_file = sys.argv[1]
+        sequence_file = sys.argv[2]
+    elif len(sys.argv) == 2:  # Si solo se pasa un archivo (podría ser opcional)
+        print("Advertencia: Se esperaban 2 archivos (initial_state y sequence). Usando valores por defecto para el segundo.")
+        initial_state_file = sys.argv[1]
+        sequence_file = default_sequence
+    else:  # Si no se pasan argumentos, usar valores por defecto
+        print(f"Advertencia: No se especificaron archivos. Usando '{default_initial_state}' y '{default_sequence}' por defecto.")
+        initial_state_file = default_initial_state
+        sequence_file = default_sequence
+    
+    main(initial_state_file, sequence_file)
