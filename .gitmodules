@@ -4,3 +4,6 @@
 [submodule "IIA/TP2"]
 	path = IIA/TP2
 	url = https://github.com/abrilnoguera/TP2-IIA.git
+[submodule "IIA/TP3"]
+	path = IIA/TP3
+	url = https://github.com/abrilnoguera/TP3-IIA.git
