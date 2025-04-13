@@ -7,3 +7,6 @@
 [submodule "IIA/TP3"]
 	path = IIA/TP3
 	url = https://github.com/abrilnoguera/TP3-IIA.git
+[submodule "AMIA/TP"]
+	path = AMIA/TP
+	url = https://github.com/abrilnoguera/TP-AMIA.git
