@@ -10,3 +10,12 @@
 [submodule "AMIA/TP"]
 	path = AMIA/TP
 	url = https://github.com/abrilnoguera/TP-AMIA.git
+[submodule "GdP/Proyecto"]
+	path = GdP/Proyecto
+	url = https://github.com/abrilnoguera/AffinityEngineFMCG.git
+[submodule "AdD/TP"]
+	path = AdD/TP
+	url = https://github.com/ferkrodriguez98/precios_claros
+[submodule "AMq/TP"]
+	path = AMq/TP
+	url = https://github.com/abrilnoguera/TP-AMq
