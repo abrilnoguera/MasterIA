@@ -1,0 +1,5 @@
+{
+    "WANDB_USERNAME": "azm630",
+    "WANDB_API_KEY":"1bb44e6be47564584868ec55bac8cf468cf0e47f",
+    "WANDB_PROJECT": "sweep_test_ceia_amq"
+}

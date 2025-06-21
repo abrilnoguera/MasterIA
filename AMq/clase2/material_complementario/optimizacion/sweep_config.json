@@ -1,0 +1,18 @@
+{
+    "method": "bayes",
+    "metric": {
+        "name": "oof_catcross",
+        "goal": "minimize"
+    },
+    "parameters": {
+        "n_estimators": {
+            "values": [30,50,100,150,200,250]
+        },
+        "min_samples_split": {
+            "values": [2,3,4,5]
+        },
+        "criterion": {
+            "values": ["gini", "entropy"]
+        }
+    }
+}

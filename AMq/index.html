@@ -1,0 +1,2887 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Documentación de Diplomatura en Ciencia de Datos e IA</title>
+    <!-- Fuentes de Google -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --sidebar-width: 320px;
+            --primary-color: #0066cc;
+            --primary-light: #4d94ff;
+            --primary-dark: #0052a3;
+            --secondary-color: #f8f9fa;
+            --text-color: #333333;
+            --text-light: #666666;
+            --light-accent: #e6f0ff;
+            --border-color: #ddd;
+            --heading-color: #0066cc;
+            --card-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --transition-speed: 0.3s;
+            --heading-font: 'Inter', sans-serif;
+            --body-font: 'Inter', sans-serif;
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: var(--body-font);
+            color: var(--text-color);
+            line-height: 1.7;
+            margin: 0;
+            padding: 0;
+            background-color: white;
+            display: flex;
+            height: 100vh;
+            overflow: hidden;
+        }
+        
+        /* Scrollbar personalizada */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary-light);
+            border-radius: 4px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--primary-color);
+        }
+        
+        /* Estilos del Sidebar */
+        .sidebar {
+            width: var(--sidebar-width);
+            height: 100vh;
+            position: fixed;
+            top: 0;
+            left: 0;
+            background-color: white;
+            border-right: 1px solid var(--border-color);
+            overflow-y: auto;
+            padding: 0;
+            z-index: 100;
+            box-shadow: 2px 0 10px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease;
+        }
+        
+        .sidebar-heading {
+            padding: 20px 20px 15px;
+            font-weight: 700;
+            font-family: var(--heading-font);
+            color: var(--heading-color);
+            font-size: 1.4rem;
+            border-bottom: 1px solid var(--border-color);
+            background-color: white;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+        
+        .sidebar-subheading {
+            font-size: 0.85rem;
+            color: var(--text-light);
+            padding: 0 20px 20px;
+            border-bottom: 1px solid var(--border-color);
+            line-height: 1.5;
+            background-color: white;
+            font-style: italic;
+        }
+        
+        .nav-link {
+            display: block;
+            color: var(--text-color);
+            padding: 0.6rem 1.5rem;
+            border-left: 3px solid transparent;
+            transition: all var(--transition-speed);
+            text-decoration: none;
+            font-size: 0.95rem;
+        }
+        
+        .nav-link:hover {
+            background-color: var(--light-accent);
+            border-left-color: var(--primary-color);
+            color: var(--primary-color);
+            padding-left: 1.7rem;
+        }
+        
+        .nav-link.active {
+            background-color: var(--light-accent);
+            border-left-color: var(--primary-color);
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+        
+        .nav-heading {
+            padding: 0.8rem 1.5rem;
+            font-weight: 600;
+            color: var(--heading-color);
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all var(--transition-speed);
+            border-top: 1px solid var(--border-color);
+            margin-top: 0.5rem;
+            position: relative;
+        }
+        
+        .nav-heading:hover {
+            background-color: var(--light-accent);
+        }
+        
+        .nav-heading .icon {
+            transition: transform var(--transition-speed);
+        }
+        
+        .nav-heading.collapsed .icon {
+            transform: rotate(-90deg);
+        }
+        
+        .nav-sublinks {
+            max-height: 2000px;
+            overflow: hidden;
+            transition: max-height 0.5s ease;
+        }
+        
+        .nav-sublinks.collapsed {
+            max-height: 0;
+        }
+        
+        .nav-sublink {
+            padding-left: 2.5rem;
+            font-size: 0.9rem;
+            position: relative;
+        }
+        
+        .nav-sublink::before {
+            content: '';
+            position: absolute;
+            left: 1.8rem;
+            top: 50%;
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            background-color: var(--border-color);
+            transform: translateY(-50%);
+            transition: background-color var(--transition-speed);
+        }
+        
+        .nav-sublink:hover::before,
+        .nav-sublink.active::before {
+            background-color: var(--primary-color);
+        }
+        
+        /* Main Content Styles */
+        .main-content {
+            margin-left: var(--sidebar-width);
+            padding: 20px 40px;
+            max-width: calc(100% - var(--sidebar-width));
+            height: 100vh;
+            overflow-y: auto;
+            background-color: white;
+            scroll-behavior: smooth;
+            scroll-padding-top: 20px;
+        }
+        
+        h1, h2, h3, h4, h5, h6 {
+            color: var(--heading-color);
+            font-family: var(--heading-font);
+            margin-top: 1.5em;
+            margin-bottom: 0.5em;
+            line-height: 1.3;
+        }
+        
+        h1 {
+            text-align: center;
+            font-size: 2.5em;
+            margin-bottom: 1em;
+            padding-bottom: 0.5em;
+            border-bottom: 2px solid var(--heading-color);
+            font-weight: 700;
+            margin-top: 0.5em;
+        }
+        
+        h2 {
+            font-size: 2em;
+            padding-bottom: 0.3em;
+            border-bottom: 1px solid var(--border-color);
+            margin-top: 2em;
+        }
+        
+        h3 {
+            font-size: 1.5em;
+            margin-top: 1.5em;
+        }
+        
+        p {
+            margin-bottom: 1em;
+        }
+        
+        ul, ol {
+            margin-bottom: 1.5em;
+            padding-left: 2em;
+        }
+        
+        li {
+            margin-bottom: 0.5em;
+        }
+        
+        .module-container {
+            margin-bottom: 4em;
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            scroll-margin-top: 20px;
+        }
+        
+        .module-intro {
+            background-color: var(--light-accent);
+            padding: 2em;
+            margin: 2em 0;
+            border-radius: 8px;
+            border-left: 5px solid var(--primary-color);
+        }
+        
+        .what-youll-learn {
+            background-color: #f0f7ff;
+            padding: 1.5em;
+            margin: 1em 0 2em;
+            border-radius: 8px;
+        }
+        
+        .what-youll-learn h4 {
+            margin-top: 0;
+            margin-bottom: 1em;
+            color: var(--primary-dark);
+        }
+        
+        .what-youll-learn ul {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 0.8em 2em;
+            margin-bottom: 0;
+        }
+        
+        .what-youll-learn li {
+            position: relative;
+            padding-left: 1.5em;
+            margin-bottom: 0.3em;
+        }
+        
+        .what-youll-learn li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--primary-color);
+            font-weight: bold;
+        }
+        
+        .prerequisites {
+            margin-bottom: 2em;
+        }
+        
+        .prerequisites h4 {
+            margin-bottom: 0.5em;
+            color: var(--primary-dark);
+        }
+        
+        .prerequisites ul {
+            margin-bottom: 1em;
+        }
+        
+        .session {
+            margin-bottom: 2.5em;
+            padding: 0;
+            background-color: white;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            box-shadow: var(--card-shadow);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            scroll-margin-top: 30px;
+        }
+        
+        .session:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .session-header {
+            background-color: var(--light-accent);
+            padding: 1.5em;
+            border-bottom: 1px solid var(--border-color);
+            border-radius: 8px 8px 0 0;
+        }
+        
+        .session-title {
+            font-size: 1.3em;
+            color: var(--heading-color);
+            margin: 0;
+            font-weight: 600;
+        }
+        
+        .session-description {
+            font-style: italic;
+            margin-top: 0.5em;
+            margin-bottom: 0;
+            color: var(--text-light);
+        }
+        
+        .session-content {
+            padding: 1.5em;
+        }
+        
+        .time-distribution {
+            background-color: var(--secondary-color);
+            padding: 1.2em 1.5em;
+            margin: 1.5em 0;
+            border-radius: 8px;
+            border-left: 4px solid var(--primary-color);
+        }
+        
+        .time-title {
+            font-weight: 600;
+            margin-top: 0;
+            margin-bottom: 0.5em;
+            color: var(--heading-color);
+        }
+        
+        .content-block {
+            margin-bottom: 1.5em;
+        }
+        
+        .block-title {
+            font-weight: 600;
+            color: var(--heading-color);
+            margin-top: 1.8em;
+            margin-bottom: 0.8em;
+            font-size: 1.1em;
+            position: relative;
+            padding-left: 1em;
+        }
+        
+        .block-title::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0.5em;
+            width: 4px;
+            height: 1em;
+            background-color: var(--primary-color);
+            border-radius: 2px;
+        }
+        
+        em {
+            color: var(--text-light);
+        }
+        
+        .module-title {
+            font-size: 2em;
+            color: white;
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+            padding: 0.7em 1em;
+            margin: 0 0 1.5em 0;
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .module-description {
+            font-size: 1.1em;
+            margin-bottom: 2em;
+            padding: 0 1em;
+            line-height: 1.7;
+        }
+        
+        /* Back to Top Button */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            display: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: var(--primary-color);
+            color: white;
+            text-align: center;
+            line-height: 50px;
+            cursor: pointer;
+            text-decoration: none;
+            z-index: 1000;
+            font-size: 1.5em;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+        }
+        
+        .back-to-top:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-5px);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.3);
+        }
+        
+        /* Indicador de progreso */
+        .progress-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: transparent;
+            z-index: 1001;
+        }
+        
+        .progress-bar {
+            height: 5px;
+            background: var(--primary-light);
+            width: 0%;
+        }
+        
+        /* Mobile Responsiveness */
+        @media (max-width: 1024px) {
+            :root {
+                --sidebar-width: 280px;
+            }
+            
+            .main-content {
+                padding: 30px;
+            }
+            
+            .what-youll-learn ul {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            }
+        }
+        
+        @media (max-width: 768px) {
+            body {
+                flex-direction: column;
+                overflow: auto;
+                height: auto;
+            }
+            
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: fixed;
+                top: 0;
+                transform: translateY(-100%);
+                transition: transform 0.4s ease;
+                max-height: 80vh;
+                border-right: none;
+                border-bottom: 1px solid var(--border-color);
+            }
+            
+            .sidebar.show {
+                transform: translateY(0);
+            }
+            
+            .main-content {
+                margin-left: 0;
+                padding: 20px;
+                max-width: 100%;
+                margin-top: 60px;
+                height: auto;
+                overflow: visible;
+            }
+            
+            .module-title {
+                font-size: 1.6em;
+                padding: 0.6em;
+            }
+            
+            h1 {
+                font-size: 1.8em;
+            }
+            
+            .what-youll-learn ul {
+                display: block;
+            }
+        }
+        
+        /* Toggle Button for Mobile */
+        .sidebar-toggle {
+            display: none;
+            position: fixed;
+            top: 15px;
+            right: 15px;
+            z-index: 1002;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            padding: 10px 15px;
+            cursor: pointer;
+            font-size: 1em;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+        }
+        
+        .sidebar-toggle:hover {
+            background-color: var(--primary-dark);
+        }
+        
+        .sidebar-toggle.active {
+            background-color: #e63946;
+        }
+        
+        @media (max-width: 768px) {
+            .sidebar-toggle {
+                display: block;
+            }
+        }
+        
+        /* Estilos adicionales para mejorar la experiencia visual */
+        .info-alert {
+            background-color: #e6f0ff;
+            border-left: 5px solid #0066cc;
+            padding: 15px 20px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+        
+        .resource-card {
+            background-color: #f8f9fa;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        
+        .resource-card h4 {
+            margin-top: 0;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 10px;
+        }
+        
+        .resource-card ul {
+            margin-bottom: 0;
+        }
+        
+        .resource-link {
+            color: var(--primary-color);
+            text-decoration: none;
+            position: relative;
+            padding-left: 5px;
+            transition: color 0.3s;
+        }
+        
+        .resource-link:hover {
+            color: var(--primary-dark);
+            text-decoration: underline;
+        }
+        
+        /* Mejoras de accesibilidad */
+        .nav-heading:focus,
+        .nav-link:focus,
+        .back-to-top:focus,
+        .sidebar-toggle:focus {
+            outline: 2px solid var(--primary-color);
+            outline-offset: 2px;
+        }
+        
+        /* Mejora en interacción */
+        .nav-heading {
+            user-select: none;
+        }
+        
+        /* Indicador de sección activa mejorado */
+        .nav-sublink.active::before {
+            background-color: var(--primary-color);
+            width: 7px;
+            height: 7px;
+        }
+        
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                transition: none !important;
+                animation: none !important;
+            }
+            
+            html {
+                scroll-behavior: auto !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Indicador de progreso -->
+    <div class="progress-container">
+        <div class="progress-bar" id="progressBar"></div>
+    </div>
+    
+    <!-- Toggle Button for Mobile -->
+    <button class="sidebar-toggle" id="sidebar-toggle" aria-label="Abrir menú">☰ Menú</button>
+    
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-heading">Documentación de Diplomatura</div>
+        <div class="sidebar-subheading">Programa completo de formación en Ciencia de Datos e Inteligencia Artificial</div>
+        
+        <nav class="sidebar-nav">
+            <a class="nav-link" href="#inicio">Inicio</a>
+            
+            <!-- Fundamentos de IA -->
+            <div class="nav-heading" data-target="fundamentos-links" tabindex="0" role="button" aria-expanded="true">
+                <span>Módulo I: Fundamentos de IA</span>
+                <span class="icon">▼</span>
+            </div>
+            <div class="nav-sublinks" id="fundamentos-links">
+                <a class="nav-link nav-sublink" href="#fundamentos">Descripción general</a>
+                <a class="nav-link nav-sublink" href="#fundamentos-sesion1">Sesión 1: Introducción a la IA</a>
+                <a class="nav-link nav-sublink" href="#fundamentos-sesion2">Sesión 2: IA en el plano laboral</a>
+                <a class="nav-link nav-sublink" href="#fundamentos-sesion3">Sesión 3: Modelos privados y APIs</a>
+                <a class="nav-link nav-sublink" href="#fundamentos-sesion4">Sesión 4: Modelos Open source</a>
+                <a class="nav-link nav-sublink" href="#fundamentos-sesion5">Sesión 5: FrontEnd a modelos</a>
+                <a class="nav-link nav-sublink" href="#fundamentos-sesion6">Sesión 6: Bases vectoriales</a>
+                <a class="nav-link nav-sublink" href="#fundamentos-sesion7">Sesión 7: IA en cloud</a>
+                <a class="nav-link nav-sublink" href="#fundamentos-sesion8">Sesión 8: Aplicaciones en negocios</a>
+            </div>
+            
+            <!-- Análisis y Preparación de Datos -->
+            <div class="nav-heading" data-target="analisis-links" tabindex="0" role="button" aria-expanded="false">
+                <span>Módulo II: Análisis de Datos</span>
+                <span class="icon">▼</span>
+            </div>
+            <div class="nav-sublinks collapsed" id="analisis-links">
+                <a class="nav-link nav-sublink" href="#analisis">Descripción general</a>
+                <a class="nav-link nav-sublink" href="#analisis-sesion1">Sesión 1: Entorno de trabajo</a>
+                <a class="nav-link nav-sublink" href="#analisis-sesion2">Sesión 2: Preprocesamiento básico</a>
+                <a class="nav-link nav-sublink" href="#analisis-sesion3">Sesión 3: Estadística aplicada</a>
+                <a class="nav-link nav-sublink" href="#analisis-sesion4">Sesión 4: Limpieza avanzada con ML</a>
+                <a class="nav-link nav-sublink" href="#analisis-sesion5">Sesión 5: EDA y visualizaciones</a>
+                <a class="nav-link nav-sublink" href="#analisis-sesion6">Sesión 6: Dashboards personalizados</a>
+                <a class="nav-link nav-sublink" href="#analisis-sesion7">Sesión 7: Proyecto End to End 1</a>
+                <a class="nav-link nav-sublink" href="#analisis-sesion8">Sesión 8: Proyecto End to End 2</a>
+            </div>
+            
+            <!-- Computer Vision -->
+            <div class="nav-heading" data-target="vision-links" tabindex="0" role="button" aria-expanded="false">
+                <span>Módulo III: Computer Vision</span>
+                <span class="icon">▼</span>
+            </div>
+            <div class="nav-sublinks collapsed" id="vision-links">
+                <a class="nav-link nav-sublink" href="#vision">Descripción general</a>
+                <a class="nav-link nav-sublink" href="#vision-sesion1">Sesión 1: Introducción</a>
+                <a class="nav-link nav-sublink" href="#vision-sesion2">Sesión 2: Procesamiento de imágenes</a>
+                <a class="nav-link nav-sublink" href="#vision-sesion3">Sesión 3: Detección de características</a>
+                <a class="nav-link nav-sublink" href="#vision-sesion4">Sesión 4: Redes Convolucionales</a>
+                <a class="nav-link nav-sublink" href="#vision-sesion5">Sesión 5: Detección de objetos</a>
+                <a class="nav-link nav-sublink" href="#vision-sesion6">Sesión 6: Segmentación semántica</a>
+                <a class="nav-link nav-sublink" href="#vision-sesion7">Sesión 7: Arquitecturas avanzadas</a>
+                <a class="nav-link nav-sublink" href="#vision-sesion8">Sesión 8: Proyecto final</a>
+            </div>
+            
+            <!-- NLP -->
+            <div class="nav-heading" data-target="nlp-links" tabindex="0" role="button" aria-expanded="false">
+                <span>Módulo IV: NLP</span>
+                <span class="icon">▼</span>
+            </div>
+            <div class="nav-sublinks collapsed" id="nlp-links">
+                <a class="nav-link nav-sublink" href="#nlp">Descripción general</a>
+                <a class="nav-link nav-sublink" href="#nlp-sesion1">Sesión 1: Introducción al NLP</a>
+                <a class="nav-link nav-sublink" href="#nlp-sesion2">Sesión 2: Representaciones vectoriales</a>
+                <a class="nav-link nav-sublink" href="#nlp-sesion3">Sesión 3: PyTorch para NLP</a>
+                <a class="nav-link nav-sublink" href="#nlp-sesion4">Sesión 4: BERT y Transformers</a>
+                <a class="nav-link nav-sublink" href="#nlp-sesion5">Sesión 5: NER y búsqueda semántica</a>
+                <a class="nav-link nav-sublink" href="#nlp-sesion6">Sesión 6: Clasificación de textos</a>
+                <a class="nav-link nav-sublink" href="#nlp-sesion7">Sesión 7: Modelos generativos</a>
+                <a class="nav-link nav-sublink" href="#nlp-sesion8">Sesión 8: Técnicas avanzadas</a>
+            </div>
+        </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content" id="main-content">
+        <section id="inicio">
+            <h1>Documentación de Diplomatura en Ciencia de Datos e Inteligencia Artificial</h1>
+            
+            <div class="info-alert">
+                <p><strong>Programa de formación integral:</strong> Este documento presenta la estructura detallada de nuestra diplomatura en Ciencia de Datos e Inteligencia Artificial, compuesta por cuatro módulos que abarcan el ecosistema actual de esta disciplina en constante evolución.</p>
+                
+                <p>El enfoque de nuestra diplomatura integra fundamentos teóricos sólidos con una metodología eminentemente práctica, priorizando la aplicación de conceptos en proyectos reales y casos prácticos. Cada módulo está diseñado para proporcionar una progresión lógica de conocimientos que, en conjunto, ofrecen una visión integral de las tecnologías de IA modernas.</p>
+                
+                <p><strong>Aspectos clave del programa:</strong></p>
+                <ul>
+                    <li>Cada módulo comprende 8 sesiones de 3 horas, combinando exposición teórica con talleres prácticos.</li>
+                    <li>Las sesiones incluyen ejercicios guiados en clase y actividades para realizar fuera del aula.</li>
+                    <li>El programa culmina con proyectos integradores que permiten aplicar el conjunto de conocimientos adquiridos.</li>
+                    <li>Se utilizan las herramientas y tecnologías más actuales del sector (Python, PyTorch, bibliotecas especializadas, etc.)</li>
+                </ul>
+            </div>
+            
+            <div class="resource-card">
+                <h4>Estructura de la diplomatura</h4>
+                <ul>
+                    <li><strong>Módulo I: Fundamentos de Inteligencia Artificial</strong> - Introducción a los conceptos clave de IA, técnicas de prompting, APIs y modelos de código abierto.</li>
+                    <li><strong>Módulo II: Análisis y Preparación de Datos</strong> - Técnicas de preprocesamiento, estadística aplicada, visualización y desarrollo de dashboards interactivos.</li>
+                    <li><strong>Módulo III: Computer Vision</strong> - Procesamiento de imágenes, redes convolucionales, detección de objetos, segmentación y arquitecturas avanzadas.</li>
+                    <li><strong>Módulo IV: Procesamiento del Lenguaje Natural</strong> - Desde embeddings básicos hasta modelos transformers y técnicas avanzadas para LLMs.</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Fundamentos de IA -->
+        <div class="module-container" id="fundamentos">
+            <h2 class="module-title">Módulo I: Fundamentos de Inteligencia Artificial</h2>
+            <p class="module-description">Una introducción integral a los conceptos, metodologías y aplicaciones prácticas de la inteligencia artificial, con énfasis en la ingeniería de prompts, herramientas de IA en entornos laborales, y la implementación de soluciones mediante APIs y modelos open source.</p>
+            
+            <div class="module-intro">
+                <p>Este módulo proporciona una base sólida para comprender y trabajar con las tecnologías actuales de IA. Partiendo desde los conceptos fundamentales, avanzamos progresivamente hacia aplicaciones prácticas que permiten desarrollar soluciones basadas en IA para diversos contextos profesionales y empresariales.</p>
+                <p>A lo largo de las 8 sesiones, exploraremos desde los fundamentos teóricos hasta la implementación práctica de sistemas de IA, incluyendo el trabajo con APIs comerciales, modelos open source, interfaces de usuario y bases de datos vectoriales para aplicaciones con memoria contextual.</p>
+            </div>
+            
+            <div class="what-youll-learn">
+                <h4>Lo que aprenderás</h4>
+                <ul>
+                    <li>Dominar técnicas efectivas de prompt engineering para interactuar con LLMs</li>
+                    <li>Implementar asistentes de IA en flujos de trabajo profesionales</li>
+                    <li>Utilizar APIs de OpenAI y otros proveedores para desarrollar aplicaciones</li>
+                    <li>Instalar y configurar modelos de código abierto mediante Ollama</li>
+                    <li>Desarrollar interfaces de usuario para aplicaciones de IA</li>
+                    <li>Implementar sistemas RAG con bases de datos vectoriales</li>
+                    <li>Desplegar soluciones de IA en entornos cloud (Azure)</li>
+                    <li>Diseñar aplicaciones de IA para resolver problemas reales de negocio</li>
+                </ul>
+            </div>
+            
+            <div class="prerequisites">
+                <h4>Prerrequisitos</h4>
+                <ul>
+                    <li>Conocimientos básicos de programación (preferiblemente Python)</li>
+                    <li>Comprensión fundamental de conceptos de desarrollo web (HTML, CSS, JavaScript)</li>
+                    <li>Familiaridad con servicios cloud (deseable pero no obligatorio)</li>
+                    <li>Equipo con especificaciones suficientes para ejecutar Ollama localmente</li>
+                </ul>
+            </div>
+            
+            <div class="session" id="fundamentos-sesion1">
+                <div class="session-header">
+                    <h3 class="session-title">Sesión 1: Introducción a la IA</h3>
+                    <p class="session-description">Introducción básica a la inteligencia artificial y fundamentos de ingeniería de prompts.</p>
+                </div>
+                
+                <div class="session-content">
+                    <div class="time-distribution">
+                        <h4 class="time-title">Distribución del tiempo (3 horas):</h4>
+                        <ul>
+                            <li>Presentación y objetivos del curso (15 min)</li>
+                            <li>Primer bloque: Introducción a la IA (30 min)</li>
+                            <li>Segundo bloque: Ingeniería de prompts (120 min con descanso de 15 min incluido)</li>
+                            <li>Explicación de ejercicios para casa (15 min)</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="content-block">
+                        <h4 class="block-title">Primer bloque: Conceptos básicos de IA</h4>
+                        <ul>
+                            <li>Breve historia y evolución de la IA: desde los orígenes hasta el auge actual de los LLMs</li>
+                            <li>Diferencias fundamentales entre IA, Machine Learning y Deep Learning: conceptos, aplicaciones y limitaciones</li>
+                            <li>Introducción a modelos de lenguaje grandes (LLMs): arquitectura básica, capacidades y limitaciones</li>
+                            <li><em>Espacio para preguntas rápidas y aclaración de conceptos</em></li>
+                        </ul>
+                        
+                        <h4 class="block-title">Segundo bloque: Ingeniería de prompts</h4>
+                        <ul>
+                            <li>Fundamentos de la comunicación con modelos de IA: componentes de un prompt efectivo</li>
+                            <li>Técnicas básicas de prompt engineering: claridad, estructura y especificidad</li>
+                            <li>Estrategias avanzadas: few-shot learning, chain-of-thought, ejemplos, taxonomías</li>
+                            <li>Role prompting y técnicas de especialización: definición de roles expertos y formato</li>
+                            <li>Optimización de prompts para diferentes objetivos: generación creativa, análisis, extracción, etc.</li>
+                            <li>Casos prácticos en diferentes escenarios: programación, análisis de datos, contenido creativo</li>
+                            <li><em>Ejercicios guiados y análisis de resultados con diferentes variaciones de prompts</em></li>
+                        </ul>
+                        
+                        <h4 class="block-title">Ejercicio para casa</h4>
+                        <ul>
+                            <li>Diseño de prompts para resolver problemas específicos asignados individualmente</li>
+                            <li>Análisis comparativo de diferentes estrategias de prompting y sus resultados</li>
+                            <li><em>Instrucciones para documentar resultados y hallazgos en formato específico</em></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="resource-card">
+                        <h4>Recursos complementarios</h4>
+                        <ul>
+                            <li><a href="#" class="resource-link">Guía de prompt engineering para ChatGPT, Claude y otros LLMs</a></li>
+                            <li><a href="#" class="resource-link">Repositorio de ejemplos efectivos de prompts para diferentes casos de uso</a></li>
+                            <li><a href="#" class="resource-link">Lecturas recomendadas sobre fundamentos de IA y LLMs</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="session" id="fundamentos-sesion2">
+                <div class="session-header">
+                    <h3 class="session-title">Sesión 2: Uso de la IA en el plano laboral (Copilots)</h3>
+                    <p class="session-description">Exploración de las herramientas de IA que transforman la productividad en entornos de trabajo.</p>
+                </div>
+                
+                <div class="session-content">
+                    <div class="time-distribution">
+                        <h4 class="time-title">Distribución del tiempo (3 horas):</h4>
+                        <ul>
+                            <li>Recapitulación de la sesión anterior (15 min)</li>
+                            <li>Primer bloque de contenido (75 min con preguntas incluidas)</li>
+                            <li>Descanso (15 min)</li>
+                            <li>Segundo bloque de contenido (75 min con preguntas incluidas)</li>
+                            <li>Explicación de ejercicios para casa (15 min)</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="content-block">
+                        <h4 class="block-title">Primer bloque: Introducción a asistentes IA</h4>
+                        <ul>
+                            <li>Panorama de asistentes de IA en entornos laborales: evolución y estado actual</li>
+                            <li>Tipos de copilots: GitHub Copilot, Microsoft Copilot, ChatGPT y sus diferencias funcionales</li>
+                            <li>Capacidades y limitaciones de los asistentes IA: análisis detallado de fortalezas y debilidades</li>
+                            <li>Integración de copilots en flujos de trabajo existentes: estrategias efectivas</li>
+                            <li><em>Demostración de capacidades y discusión sobre casos de uso efectivos</em></li>
+                        </ul>
+                        
+                        <h4 class="block-title">Segundo bloque: Técnicas efectivas</h4>
+                        <ul>
+                            <li>Fundamentos del prompting efectivo en contextos laborales específicos</li>
+                            <li>Estrategias avanzadas de prompting para diferentes objetivos profesionales</li>
+                            <li>Casos de uso en programación, diseño y generación de contenido: ejemplos prácticos</li>
+                            <li>Mejores prácticas y patrones comunes para maximizar productividad</li>
+                            <li><em>Ejercicios guiados con GitHub Copilot y Microsoft Copilot</em></li>
+                        </ul>
+                        
+                        <h4 class="block-title">Ejercicio para casa</h4>
+                        <ul>
+                            <li>Uso de GitHub Copilot o similar para un problema específico del área de interés</li>
+                            <li>Optimización de prompts para mejorar resultados y documentación del proceso</li>
+                            <li><em>Instrucciones para documentar y compartir resultados en formato estándar</em></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="resource-card">
+                        <h4>Recursos complementarios</h4>
+                        <ul>
+                            <li><a href="#" class="resource-link">Guía oficial de GitHub Copilot para desarrolladores</a></li>
+                            <li><a href="#" class="resource-link">Estrategias para optimizar el trabajo con Microsoft Copilot</a></li>
+                            <li><a href="#" class="resource-link">Estudio de casos: Implementación exitosa de asistentes IA en empresas</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="session" id="fundamentos-sesion3">
+                <div class="session-header">
+                    <h3 class="session-title">Sesión 3: Modelos privados, trabajos por APIs</h3>
+                    <p class="session-description">Implementación de soluciones de IA mediante APIs de modelos comerciales y privados.</p>
+                </div>
+                
+                <div class="session-content">
+                    <div class="time-distribution">
+                        <h4 class="time-title">Distribución del tiempo (3 horas):</h4>
+                        <ul>
+                            <li>Recapitulación y respuesta a dudas pendientes (15 min)</li>
+                            <li>Primer bloque de contenido (75 min con preguntas incluidas)</li>
+                            <li>Descanso (15 min)</li>
+                            <li>Segundo bloque de contenido (75 min con preguntas incluidas)</li>
+                            <li>Explicación de ejercicios para casa (15 min)</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="content-block">
+                        <h4 class="block-title">Primer bloque: Ecosistema de APIs de OpenAI</h4>
+                        <ul>
+                            <li>Introducción a la API de OpenAI y sus modelos: GPT-3.5, GPT-4, DALL-E, etc.</li>
+                            <li>Capacidades, limitaciones y consideraciones de costos: análisis detallado</li>
+                            <li>Comparativa con otras APIs (Claude, Gemini, etc.): ventajas y desventajas</li>
+                            <li>Arquitectura de aplicaciones basadas en APIs de OpenAI: diseño y consideraciones</li>
+                            <li><em>Análisis de casos de uso reales y preguntas sobre implementación</em></li>
+                        </ul>
+                        
+                        <h4 class="block-title">Segundo bloque: Aspectos técnicos</h4>
+                        <ul>
+                            <li>Autenticación y seguridad con la API de OpenAI: mejores prácticas</li>
+                            <li>Estrategias de gestión de costos y optimización de tokens: técnicas específicas</li>
+                            <li>Técnicas de caché y recuperación de errores: implementación robusta</li>
+                            <li>Integración en aplicaciones existentes: patrones de diseño y arquitectura</li>
+                            <li><em>Ejemplos prácticos de código y resolución de problemas comunes</em></li>
+                        </ul>
+                        
+                        <h4 class="block-title">Ejercicio para casa</h4>
+                        <ul>
+                            <li>Implementación de una aplicación simple con la API de OpenAI (chat, generación de contenido o análisis)</li>
+                            <li>Documentación del proceso y consumo de recursos con análisis de costos</li>
+                            <li><em>Pautas para la entrega y criterios de evaluación detallados</em></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="resource-card">
+                        <h4>Recursos complementarios</h4>
+                        <ul>
+                            <li><a href="#" class="resource-link">Documentación oficial de la API de OpenAI</a></li>
+                            <li><a href="#" class="resource-link">Repositorio de ejemplos de implementaciones con distintas APIs</a></li>
+                            <li><a href="#" class="resource-link">Guía de optimización de costos en APIs de modelos comerciales</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="session" id="fundamentos-sesion4">
+                <div class="session-header">
+                    <h3 class="session-title">Sesión 4: Modelos Open source mediante Ollama</h3>
+                    <p class="session-description">Implementación local de modelos de IA de código abierto utilizando Ollama.</p>
+                </div>
+                
+                <div class="session-content">
+                    <div class="time-distribution">
+                        <h4 class="time-title">Distribución del tiempo (3 horas):</h4>
+                        <ul>
+                            <li>Revisión de conceptos previos (15 min)</li>
+                            <li>Primer bloque de contenido (75 min con preguntas incluidas)</li>
+                            <li>Descanso (15 min)</li>
+                            <li>Segundo bloque de contenido (75 min con preguntas incluidas)</li>
+                            <li>Explicación de ejercicios para casa (15 min)</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="content-block">
+                        <h4 class="block-title">Primer bloque: Introducción a modelos open source</h4>
+                        <ul>
+                            <li>Comparativa entre modelos comerciales y de código abierto: capacidades, limitaciones y casos de uso</li>
+                            <li>Ventajas y desventajas del enfoque local: privacidad, costos, rendimiento y personalización</li>
+                            <li>Ollama: instalación y configuración paso a paso en diferentes sistemas operativos</li>
+                            <li>Solución de problemas comunes de instalación y configuración</li>
+                            <li><em>Resolución de problemas individuales y preguntas específicas de configuración</em></li>
+                        </ul>
+                        
+                        <h4 class="block-title">Segundo bloque: Trabajando con modelos en Ollama</h4>
+                        <ul>
+                            <li>Exploración detallada de modelos disponibles: Llama, Mistral, Phi - características y rendimiento</li>
+                            <li>Gestión de modelos: descarga, actualización y eliminación eficiente</li>
+                            <li>Ajuste de parámetros para optimizar resultados: temperatura, top_p, max_tokens, etc.</li>
+                            <li>Optimización para recursos locales limitados: cuantización y modelos eficientes</li>
+                            <li><em>Demostración práctica y comparación de resultados entre diferentes modelos</em></li>
+                        </ul>
+                        
+                        <h4 class="block-title">Ejercicio para casa</h4>
+                        <ul>
+                            <li>Creación de una aplicación simple con la API de Ollama integrada</li>
+                            <li>Pruebas comparativas con diferentes modelos y configuraciones de parámetros</li>
+                            <li><em>Guía detallada para documentar y evaluar resultados de manera sistemática</em></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="session" id="fundamentos-sesion5">
+                <div class="session-header">
+                    <h3 class="session-title">Sesión 5: FrontEnd a nuestros modelos</h3>
+                    <p class="session-description">Desarrollo de interfaces de usuario para interactuar con modelos de IA.</p>
+                </div>
+                
+                <div class="session-content">
+                    <div class="time-distribution">
+                        <h4 class="time-title">Distribución del tiempo (3 horas):</h4>
+                        <ul>
+                            <li>Recapitulación y objetivos (15 min)</li>
+                            <li>Primer bloque de contenido (75 min con preguntas incluidas)</li>
+                            <li>Descanso (15 min)</li>
+                            <li>Segundo bloque de contenido (75 min con preguntas incluidas)</li>
+                            <li>Explicación de ejercicios para casa (15 min)</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="content-block">
+                        <h4 class="block-title">Primer bloque: Plataformas nocode para IA</h4>
+                        <ul>
+                            <li>Introducción a plataformas nocode para aplicaciones de IA: panorama general</li>
+                            <li>Presentación detallada de Anything: capacidades, limitaciones y casos de uso</li>
+                            <li>Principios de diseño de interfaces para aplicaciones de IA: usabilidad y experiencia</li>
+                            <li>Comparativa con otras soluciones nocode: ventajas y desventajas específicas</li>
+                            <li><em>Análisis de ejemplos reales y discusión sobre mejores prácticas</em></li>
+                        </ul>
+                        
+                        <h4 class="block-title">Segundo bloque: Integrando Anything con Ollama</h4>
+                        <ul>
+                            <li>Configuración paso a paso de la conexión entre Anything y Ollama: requisitos y proceso</li>
+                            <li>Implementación de interfaces conversacionales: diseño y consideraciones</li>
+                            <li>Manejo de estados y respuestas asíncronas: técnicas efectivas</li>
+                            <li>Técnicas de personalización y optimización para diferentes casos de uso</li>
+                            <li><em>Demostración práctica completa y resolución de dudas específicas</em></li>
+                        </ul>
+                        
+                        <h4 class="block-title">Ejercicio para casa</h4>
+                        <ul>
+                            <li>Desarrollo de una interfaz básica en Anything conectada a Ollama para un caso de uso específico</li>
+                            <li>Implementación de funcionalidades específicas según casos de uso asignados</li>
+                            <li><em>Criterios detallados de evaluación y recursos de apoyo complementarios</em></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="session" id="fundamentos-sesion6">
+                <div class="session-header">
+                    <h3 class="session-title">Sesión 6: Bases de datos vectoriales introducción</h3>
+                    <p class="session-description">Fundamentos de bases de datos vectoriales para aplicaciones de IA con memoria contextual.</p>
+                </div>
+                
+                <div class="session-content">
+                    <div class="time-distribution">
+                        <h4 class="time-title">Distribución del tiempo (3 horas):</h4>
+                        <ul>
+                            <li>Repaso de conceptos clave de sesiones anteriores (15 min)</li>
+                            <li>Bloques de contenido (45 min c/u con preguntas incluidas)</li>
+                            <li>Descansos (10 min después de cada bloque)</li>
+                            <li>Laboratorio práctico con ejercicios guiados (45 min)</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="content-block">
+                        <h4 class="block-title">Primer bloque: Fundamentos vectoriales</h4>
+                        <ul>
+                            <li>Introducción a embeddings y representaciones vectoriales: concepto y aplicaciones</li>
+                            <li>Conceptos clave: similitud coseno, distancia euclidiana, dimensionalidad</li>
+                            <li>Técnicas de reducción de dimensionalidad: PCA, t-SNE, UMAP</li>
+                            <li>Visualización de espacios vectoriales y relaciones semánticas</li>
+                            <li><em>Ejemplos visuales interactivos y preguntas conceptuales</em></li>
+                        </ul>
+                        
+                        <h4 class="block-title">Segundo bloque: Arquitectura RAG</h4>
+                        <ul>
+                            <li>Fundamentos de Retrieval Augmented Generation: componentes y flujo</li>
+                            <li>Comparativa de bases de datos vectoriales disponibles: Chroma, Pinecone, Weaviate, etc.</li>
+                            <li>Implementación básica de indexación y consulta vectorial</li>
+                            <li>Evaluación de resultados y optimización de búsqueda</li>
+                            <li><em>Casos de uso reales y análisis de limitaciones prácticas</em></li>
+                        </ul>
+                        
+                        <h4 class="block-title">Laboratorio práctico</h4>
+                        <ul>
+                            <li>Implementación básica de un sistema RAG con ChromaDB y Ollama</li>
+                            <li>Pruebas con diferentes tipos de consultas y fuentes de datos</li>
+                            <li>Evaluación de relevancia y precisión de las respuestas</li>
+                            <li><em>Análisis de resultados y técnicas de optimización guiadas</em></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="session" id="fundamentos-sesion7">
+                <div class="session-header">
+                    <h3 class="session-title">Sesión 7: IA en entornos cloud</h3>
+                    <p class="session-description">Implementación y despliegue de soluciones de IA en plataformas cloud.</p>
+                </div>
+                
+                <div class="session-content">
+                    <div class="time-distribution">
+                        <h4 class="time-title">Distribución del tiempo (3 horas):</h4>
+                        <ul>
+                            <li>Revisión de avances en proyectos (15 min)</li>
+                            <li>Primer bloque de contenido (75 min con preguntas incluidas)</li>
+                            <li>Descanso (15 min)</li>
+                            <li>Segundo bloque de contenido (75 min con preguntas incluidas)</li>
+                            <li>Explicación de ejercicios para casa (15 min)</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="content-block">
+                        <h4 class="block-title">Primer bloque: Servicios cloud de Azure para IA</h4>
+                        <ul>
+                            <li>Introducción al ecosistema de Azure para IA: panorama completo de servicios</li>
+                            <li>Azure Cognitive Services y Azure OpenAI Service: capacidades y limitaciones</li>
+                            <li>Opciones de escalabilidad y modelos de precios: análisis detallado</li>
+                            <li>Comparativa con otras plataformas cloud: AWS, GCP, especializados</li>
+                            <li><em>Análisis de escenarios empresariales y criterios de selección</em></li>
+                        </ul>
+                        
+                        <h4 class="block-title">Segundo bloque: Arquitecturas serverless en Azure</h4>
+                        <ul>
+                            <li>Azure Functions para aplicaciones de IA: diseño e implementación</li>
+                            <li>Contenedorización con Azure Container Instances y App Service: opciones y consideraciones</li>
+                            <li>Monitoreo y logging con Azure Monitor: implementación efectiva</li>
+                            <li>Arquitecturas de referencia para aplicaciones de IA: patrones y mejores prácticas</li>
+                            <li><em>Ejemplos prácticos de despliegue y discusión de arquitecturas</em></li>
+                        </ul>
+                        
+                        <h4 class="block-title">Ejercicio para casa</h4>
+                        <ul>
+                            <li>Despliegue de una API de IA sencilla en Azure (integración de modelo previamente trabajado)</li>
+                            <li>Configuración de monitoreo básico y documentación de métricas de rendimiento</li>
+                            <li><em>Guía detallada de implementación y entregables específicos esperados</em></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="session" id="fundamentos-sesion8">
+                <div class="session-header">
+                    <h3 class="session-title">Sesión 8: Diseño y desarrollo de aplicaciones en negocios</h3>
+                    <p class="session-description">Aplicación práctica de IA para resolver problemas reales de negocio.</p>
+                </div>
+                
+                <div class="session-content">
+                    <div class="time-distribution">
+                        <h4 class="time-title">Distribución del tiempo (3 horas):</h4>
+                        <ul>
+                            <li>Recapitulación del módulo completo (15 min)</li>
+                            <li>Bloques de contenido (40 min c/u con preguntas incluidas)</li>
+                            <li>Descanso (10 min)</li>
+                            <li>Presentación de proyectos finales (75 min)</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="content-block">
+                        <h4 class="block-title">Primer bloque: Aplicaciones empresariales</h4>
+                        <ul>
+                            <li>Identificación de oportunidades de IA en diferentes sectores: framework de evaluación</li>
+                            <li>Evaluación de factibilidad y retorno de inversión: metodologías y métricas</li>
+                            <li>Gestión de expectativas y comunicación con stakeholders</li>
+                            <li>Integración con sistemas existentes: desafíos y soluciones</li>
+                            <li><em>Discusión de ejemplos reales de éxito y fracaso</em></li>
+                        </ul>
+                        
+                        <h4 class="block-title">Segundo bloque: Consideraciones prácticas</h4>
+                        <ul>
+                            <li>Aspectos éticos y legales en implementaciones de IA: normativas y mejores prácticas</li>
+                            <li>Estrategias de adopción y gestión del cambio en organizaciones</li>
+                            <li>Mantenimiento y evolución de sistemas de IA: consideraciones a largo plazo</li>
+                            <li>Medición de impacto y ROI: KPIs y métodos de evaluación</li>
+                            <li><em>Preguntas, discusión y preparación para presentaciones</em></li>
+                        </ul>
+                        
+                        <h4 class="block-title">Presentación de proyectos finales</h4>
+                        <ul>
+                            <li>Presentaciones de soluciones de IA para casos de negocio específicos</li>
+                            <li>Retroalimentación constructiva entre pares y evaluación</li>
+                            <li>Discusión de mejoras potenciales y próximos pasos</li>
+                            <li><em>Conclusiones del módulo y recomendaciones para desarrollo profesional</em></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Análisis y Preparación de Datos -->
+        <div class="module-container" id="analisis">
+            <h2 class="module-title">Módulo II: Análisis y Preparación de Datos</h2>
+            <p class="module-description">Un estudio exhaustivo sobre técnicas y procesos para trabajar con datos en proyectos de ciencia de datos e IA, incluyendo la configuración del entorno, limpieza y transformación de datos, análisis estadístico, visualización avanzada y desarrollo de dashboards interactivos.</p>
+            
+            <div class="module-intro">
+                <p>Este módulo ofrece una inmersión profunda en la fase crítica de preparación y análisis de datos, elemento fundamental en cualquier proyecto de ciencia de datos e inteligencia artificial. Partiremos desde la configuración de un entorno optimizado, pasando por técnicas básicas y avanzadas de limpieza, para culminar con la creación de visualizaciones interactivas y el desarrollo de un proyecto integral.</p>
+                <p>A través de un enfoque eminentemente práctico, los participantes adquirirán las habilidades técnicas necesarias para transformar datos crudos en recursos valiosos, preparados para alimentar modelos analíticos y de machine learning.</p>
+            </div>
+            
+            <div class="what-youll-learn">
+                <h4>Lo que aprenderás</h4>
+                <ul>
+                    <li>Configurar un entorno de desarrollo optimizado para ciencia de datos</li>
+                    <li>Implementar técnicas efectivas de limpieza y preprocesamiento de datos</li>
+                    <li>Aplicar análisis estadístico para comprender patrones y relaciones</li>
+                    <li>Utilizar algoritmos de ML para detectar anomalías e imputar valores</li>
+                    <li>Crear visualizaciones estáticas e interactivas para comunicar hallazgos</li>
+                    <li>Desarrollar dashboards personalizados con Streamlit</li>
+                    <li>Planificar y ejecutar proyectos end-to-end de análisis de datos</li>
+                    <li>Presentar resultados y hallazgos de manera efectiva a stakeholders</li>
+                </ul>
+            </div>
+            
+            <div class="prerequisites">
+                <h4>Prerrequisitos</h4>
+                <ul>
+                    <li>Conocimientos básicos de programación en Python</li>
+                    <li>Familiaridad con conceptos elementales de estadística</li>
+                    <li>Comprensión básica de estructuras de datos y algoritmos</li>
+                    <li>Conocimientos mínimos de bases de datos (SQL básico)</li>
+                </ul>
+            </div>
+            
+            <div class="session" id="analisis-sesion1">
+                <div class="session-header">
+                    <h3 class="session-title">Sesión 1: Creación de un entorno de trabajo para Datos</h3>
+                    <p class="session-description">Configuración del ecosistema de herramientas necesarias para el análisis y preparación de datos.</p>
+                </div>
+                
+                <div class="session-content">
+                    <div class="time-distribution">
+                        <h4 class="time-title">Distribución del tiempo (3 horas):</h4>
+                        <ul>
+                            <li>Presentación del módulo y participantes (15 min)</li>
+                            <li>Primer bloque: Configuración básica guiada (75 min)</li>
+                            <li>Descanso (15 min)</li>
+                            <li>Segundo bloque: Herramientas esenciales con ejemplos prácticos (75 min)</li>
+                            <li>Explicación de ejercicios para casa (15 min)</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="content-block">
+                        <h4 class="block-title">Primer bloque: Configuración básica (práctica guiada)</h4>
+                        <ul>
+                            <li>Instalación en tiempo real de Python y configuración de entornos virtuales (venv, conda)</li>
+                            <li>Configuración paso a paso de Jupyter Notebooks/Lab: instalación, extensiones y personalización</li>
+                            <li>Instalación y verificación de bibliotecas esenciales: NumPy, Pandas, Matplotlib, Seaborn, Scikit-learn</li>
+                            <li>Configuración de Git para control de versiones en proyectos de datos</li>
+                            <li><em>Solución de problemas comunes en vivo y verificación de instalaciones</em></li>
+                            <li><em>Ejercicios de verificación y pruebas de funcionamiento básico</em></li>
+                        </ul>
+                        
+                        <h4 class="block-title">Segundo bloque: Herramientas esenciales (ejemplos prácticos)</h4>
+                        <ul>
+                            <li>Introducción práctica a Pandas con ejemplos interactivos: Series, DataFrames, operaciones básicas</li>
+                            <li>Demostración de importación y exportación de diferentes formatos de datos: CSV, Excel, JSON, SQL</li>
+                            <li>Configuración y prueba de conexiones a bases de datos: SQLite, PostgreSQL, MySQL</li>
+                            <li>Ejemplos prácticos de manipulación básica de datos: filtrado, selección, agregación</li>
+                            <li>Configuración de entornos de visualización básicos</li>
+                            <li><em>Ejercicios guiados y resolución conjunta de problemas comunes</em></li>
+                        </ul>
+                        
+                        <h4 class="block-title">Ejercicio para casa</h4>
+                        <ul>
+                            <li>Creación de un proyecto inicial de análisis con datos proporcionados: configuración completa</li>
+                            <li>Configuración de Git para control de versiones del proyecto: estructura de repositorio</li>
+                            <li>Importación y exploración inicial de múltiples fuentes de datos</li>
+                            <li>Documentación del proceso y resolución de problemas encontrados</li>
+                            <li><em>Guía detallada de entregables y criterios de evaluación específicos</em></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="session" id="analisis-sesion2">
+                <div class="session-header">
+                    <h3 class="session-title">Sesión 2: Preprocesamiento básico de datos</h3>
+                    <p class="session-description">Técnicas fundamentales para la limpieza y transformación de datos.</p>
+                </div>
+                
+                <div class="session-content">
+                    <div class="time-distribution">
+                        <h4 class="time-title">Distribución del tiempo (3 horas):</h4>
+                        <ul>
+                            <li>Repaso de conceptos de la sesión anterior (15 min)</li>
+                            <li>Primer bloque: Evaluación y limpieza de datos (75 min)</li>
+                            <li>Descanso (15 min)</li>
+                            <li>Segundo bloque: Transformación y normalización (75 min)</li>
+                            <li>Explicación de ejercicios para casa (15 min)</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="content-block">
+                        <h4 class="block-title">Primer bloque: Evaluación y limpieza de datos</h4>
+                        <ul>
+                            <li>Estrategias para la evaluación inicial de la calidad de datos: descriptivos, distribuciones, correlaciones</li>
+                            <li>Identificación y manejo de valores nulos y duplicados: técnicas y consideraciones</li>
+                            <li>Tratamiento de valores atípicos (outliers): métodos estadísticos y visuales para su detección</li>
+                            <li>Técnicas avanzadas de filtrado con Pandas: operaciones combinadas y condicionales</li>
+                            <li>Validación de rangos y restricciones sobre datos: implementación de reglas de negocio</li>
+                            <li><em>Ejercicios prácticos con datasets reales que presentan desafíos de limpieza habituales</em></li>
+                        </ul>
+                        
+                        <h4 class="block-title">Segundo bloque: Transformación y normalización</h4>
+                        <ul>
+                            <li>Fundamentos de transformación de datos: objetivos y métodos generales</li>
+                            <li>Codificación de variables categóricas: one-hot encoding, label encoding, ordinal encoding</li>
+                            <li>Escalamiento de variables numéricas: normalización, estandarización, robust scaling</li>
+                            <li>Ingeniería de características básica: creación de nuevas variables derivadas</li>
+                            <li>Transformaciones para corrección de distribuciones: logarítmica, raíz cuadrada, Box-Cox</li>
+                            <li>Pipeline de preprocesamiento con scikit-learn: diseño e implementación</li>
+                            <li><em>Implementación práctica de transformaciones y evaluación de impacto en los datos</em></li>
+                        </ul>
+                        
+                        <h4 class="block-title">Ejercicio para casa</h4>
+                        <ul>
+                            <li>Análisis de un dataset complejo con diversos problemas de calidad y heterogeneidad</li>
+                            <li>Diseño e implementación de un pipeline de limpieza y transformación completo</li>
+                            <li>Documentación del proceso, decisiones tomadas y justificación de métodos aplicados</li>
+                            <li>Evaluación comparativa del dataset original vs procesado: métricas y visualizaciones</li>
+                            <li><em>Preparación para presentación de resultados destacando insights obtenidos</em></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="resource-card">
+                        <h4>Recursos complementarios</h4>
+                        <ul>
+                            <li><a href="#" class="resource-link">Guía completa de técnicas de limpieza de datos con Pandas</a></li>
+                            <li><a href="#" class="resource-link">Notebook con ejemplos de transformación y normalización de variables</a></li>
+                            <li><a href="#" class="resource-link">Artículo: "Estrategias para lidiar con valores atípicos en análisis de datos"</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="session" id="analisis-sesion3">
+                <div class="session-header">
+                    <h3 class="session-title">Sesión 3: Estadística aplicada para análisis de datos</h3>
+                    <p class="session-description">Aplicación de métodos estadísticos para extraer información significativa de los datos.</p>
+                </div>
+                
+                <div class="session-content">
+                    <div class="time-distribution">
+                        <h4 class="time-title">Distribución del tiempo (3 horas):</h4>
+                        <ul>
+                            <li>Repaso de conceptos clave (15 min)</li>
+                            <li>Primer bloque: Estadística descriptiva (75 min)</li>
+                            <li>Descanso (15 min)</li>
+                            <li>Segundo bloque: Inferencia estadística (75 min)</li>
+                            <li>Explicación de ejercicios para casa (15 min)</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="content-block">
+                        <h4 class="block-title">Primer bloque: Estadística descriptiva</h4>
+                        <ul>
+                            <li>Medidas de tendencia central y dispersión: implementación e interpretación en Python</li>
+                            <li>Análisis de distribuciones: histogramas, densidad, Q-Q plots y boxplots</li>
+                            <li>Técnicas de visualización estadística con seaborn: pairplots, jointplots, violinplots</li>
+                            <li>Análisis multivariado y matrices de correlación: interpretación y visualización</li>
+                            <li>Detección de relaciones no lineales y análisis de patrones complejos</li>
+                            <li>Estadística robusta: medidas resistentes a outliers y distribuciones sesgadas</li>
+                            <li><em>Aplicación en tiempo real sobre conjuntos de datos de diferentes dominios</em></li>
+                        </ul>
+                        
+                        <h4 class="block-title">Segundo bloque: Inferencia estadística</h4>
+                        <ul>
+                            <li>Fundamentos de probabilidad aplicada al análisis de datos</li>
+                            <li>Intervalos de confianza: cálculo e interpretación práctica</li>
+                            <li>Pruebas de hipótesis para diferentes tipos de variables y escenarios</li>
+                            <li>ANOVA y análisis de varianza: cuándo y cómo aplicarlo correctamente</li>
+                            <li>Tests no paramétricos: alternativas cuando no se cumplen las condiciones habituales</li>
+                            <li>Análisis de potencia estadística y determinación de tamaños muestrales</li>
+                            <li>Interpretación de resultados estadísticos en el contexto de proyectos reales</li>
+                            <li><em>Ejercicios guiados de análisis estadístico orientado a la toma de decisiones</em></li>
+                        </ul>
+                        
+                        <h4 class="block-title">Ejercicio para casa</h4>
+                        <ul>
+                            <li>Análisis estadístico completo de un dataset asignado: descriptivo e inferencial</li>
+                            <li>Formulación y verificación de al menos tres hipótesis relevantes sobre los datos</li>
+                            <li>Creación de un notebook documentado con conclusiones y recomendaciones basadas en evidencia</li>
+                            <li>Preparación de visualizaciones estadísticas avanzadas para comunicar hallazgos clave</li>
+                            <li><em>Instrucciones detalladas para la elaboración de un informe ejecutivo basado en estadísticas</em></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="resource-card">
+                        <h4>Recursos complementarios</h4>
+                        <ul>
+                            <li><a href="#" class="resource-link">Guía práctica de estadística inferencial para científicos de datos</a></li>
+                            <li><a href="#" class="resource-link">Biblioteca de visualizaciones estadísticas con código de ejemplo</a></li>
+                            <li><a href="#" class="resource-link">Artículo: "Errores comunes en la interpretación de pruebas estadísticas"</a></li>
+                            <li><a href="#" class="resource-link">Cheatsheet: Selección de pruebas estadísticas según tipo de datos y objetivos</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="session" id="analisis-sesion4">
+                <div class="session-header">
+                    <h3 class="session-title">Sesión 4: Limpieza avanzada con ML</h3>
+                    <p class="session-description">Técnicas de machine learning para la detección de anomalías e imputación de valores faltantes.</p>
+                </div>
+                
+                <div class="session-content">
+                    <div class="time-distribution">
+                        <h4 class="time-title">Distribución del tiempo (3 horas):</h4>
+                        <ul>
+                            <li>Revisión de ejercicios de la semana anterior (15 min)</li>
+                            <li>Primer bloque: Detección de anomalías (75 min)</li>
+                            <li>Descanso (15 min)</li>
+                            <li>Segundo bloque: Métodos de imputación (75 min)</li>
+                            <li>Explicación de ejercicios para casa (15 min)</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="content-block">
+                        <h4 class="block-title">Primer bloque: Detección de anomalías</h4>
+                        <ul>
+                            <li>Fundamentos teóricos de la detección de anomalías: definiciones y taxonomía</li>
+                            <li>Métodos estadísticos: Z-score, IQR, test de Grubbs, distancia de Mahalanobis</li>
+                            <li>Algoritmos basados en distancia: k-NN, LOF (Local Outlier Factor)</li>
+                            <li>Técnicas basadas en clustering: DBSCAN, K-means para detección de anomalías</li>
+                            <li>Métodos de aislamiento: Isolation Forest, One-class SVM</li>
+                            <li>Evaluación de métodos de detección de anomalías: métricas y consideraciones</li>
+                            <li>Implementación con scikit-learn y PyOD: ejemplos prácticos</li>
+                            <li><em>Análisis de casos de uso para diferentes dominios: fraude, fallas en sistemas, etc.</em></li>
+                        </ul>
+                        
+                        <h4 class="block-title">Segundo bloque: Métodos de imputación</h4>
+                        <ul>
+                            <li>Patrones de valores faltantes: MCAR, MAR, MNAR - identificación e implicaciones</li>
+                            <li>Técnicas simples: media, mediana, moda, valores constantes</li>
+                            <li>Imputación basada en k-NN: fundamentos e implementación</li>
+                            <li>Métodos basados en modelos: regresión, árboles de decisión</li>
+                            <li>Imputación múltiple: principios e implementación con Python</li>
+                            <li>Técnicas basadas en matriz: Soft Impute, SVD, NMF</li>
+                            <li>Métodos avanzados: imputación mediante redes neuronales y modelos generativos</li>
+                            <li>Evaluación de métodos de imputación: diseño de experimentos y métricas</li>
+                            <li><em>Ejercicios prácticos con datos reales que presentan diferentes patrones de valores faltantes</em></li>
+                        </ul>
+                        
+                        <h4 class="block-title">Ejercicio para casa</h4>
+                        <ul>
+                            <li>Desarrollo de un pipeline completo de detección y tratamiento de anomalías en un dataset asignado</li>
+                            <li>Implementación y comparación de al menos tres métodos diferentes de imputación</li>
+                            <li>Evaluación del impacto de diferentes estrategias en análisis posteriores (ej. modelos predictivos)</li>
+                            <li>Documentación detallada del proceso y justificación de decisiones metodológicas</li>
+                            <li><em>Creación de un informe visual que muestre el antes y después del tratamiento de datos</em></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="resource-card">
+                        <h4>Recursos complementarios</h4>
+                        <ul>
+                            <li><a href="#" class="resource-link">Guía completa: "Detección de anomalías con Python - De la teoría a la práctica"</a></li>
+                            <li><a href="#" class="resource-link">Repositorio de técnicas de imputación implementadas en scikit-learn</a></li>
+                            <li><a href="#" class="resource-link">Paper: "Evaluación comparativa de métodos modernos de imputación"</a></li>
+                            <li><a href="#" class="resource-link">Tutorial: Implementación de algoritmos de detección de anomalías en tiempo real</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="session" id="analisis-sesion5">
+                <div class="session-header">
+                    <h3 class="session-title">Sesión 5: EDA y visualizaciones</h3>
+                    <p class="session-description">Análisis exploratorio de datos y técnicas avanzadas de visualización.</p>
+                </div>
+                
+                <div class="session-content">
+                    <div class="time-distribution">
+                        <h4 class="time-title">Distribución del tiempo (3 horas):</h4>
+                        <ul>
+                            <li>Recapitulación de conceptos previos (15 min)</li>
+                            <li>Primer bloque: Fundamentos de EDA (75 min)</li>
+                            <li>Descanso (15 min)</li>
+                            <li>Segundo bloque: Visualizaciones avanzadas (75 min)</li>
+                            <li>Explicación de ejercicios para casa (15 min)</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="content-block">
+                        <h4 class="block-title">Primer bloque: Fundamentos de EDA</h4>
+                        <ul>
+                            <li>Filosofía y objetivos del análisis exploratorio de datos: descubrimiento vs. confirmación</li>
+                            <li>Metodologías estructuradas para EDA: frameworks y flujos de trabajo efectivos</li>
+                            <li>Exploración univariante: distribuciones, estadísticos y patrones en variables individuales</li>
+                            <li>Análisis bivariante: relaciones, correlaciones y asociaciones entre pares de variables</li>
+                            <li>Exploración multivariante: técnicas para analizar relaciones complejas entre múltiples variables</li>
+                            <li>Segmentación y análisis por grupos: descubrimiento de patrones específicos dentro de subpoblaciones</li>
+                            <li>Análisis temporal: tendencias, estacionalidad, ciclos y anomalías en series de tiempo</li>
+                            <li><em>Demostración de flujo completo de EDA con un caso práctico en tiempo real</em></li>
+                        </ul>
+                        
+                        <h4 class="block-title">Segundo bloque: Visualizaciones avanzadas</h4>
+                        <ul>
+                            <li>Principios de diseño visual efectivo: claridad, integridad y eficiencia en visualizaciones</li>
+                            <li>Visualizaciones avanzadas con Matplotlib: personalización, composición y estilos</li>
+                            <li>Gramática de gráficos con Plotly: construcción modular de visualizaciones complejas</li>
+                            <li>Visualizaciones interactivas: Plotly Express, Bokeh y HoloViews para exploración dinámica</li>
+                            <li>Técnicas para datos de alta dimensionalidad: heatmaps, coordenadas paralelas, diagramas de Sankey</li>
+                            <li>Visualización geoespacial: mapas coropletas, mapas de calor y visualización de datos georreferenciados</li>
+                            <li>Visualización para comunicación efectiva: narración de historias con datos (storytelling)</li>
+                            <li><em>Taller práctico: creación de un conjunto de visualizaciones avanzadas para un dataset complejo</em></li>
+                        </ul>
+                        
+                        <h4 class="block-title">Ejercicio para casa</h4>
+                        <ul>
+                            <li>Desarrollo de un análisis exploratorio completo de un dataset asignado siguiendo metodología estructurada</li>
+                            <li>Creación de al menos 8 visualizaciones avanzadas que revelen insights no triviales de los datos</li>
+                            <li>Implementación de al menos 2 visualizaciones interactivas que permitan exploración dinámica</li>
+                            <li>Documentación detallada del proceso, insights descubiertos y decisiones de diseño visual</li>
+                            <li>Preparación de una presentación concisa enfocada en comunicar hallazgos clave</li>
+                            <li><em>Exploración adicional: uso de técnicas de reducción de dimensionalidad para visualización</em></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="resource-card">
+                        <h4>Recursos complementarios</h4>
+                        <ul>
+                            <li><a href="#" class="resource-link">Guía completa: "El arte y la ciencia del análisis exploratorio de datos"</a></li>
+                            <li><a href="#" class="resource-link">Galería de visualizaciones avanzadas con código Python</a></li>
+                            <li><a href="#" class="resource-link">Artículo: "Mejores prácticas para comunicación visual efectiva de resultados analíticos"</a></li>
+                            <li><a href="#" class="resource-link">Tutorial interactivo: Técnicas de visualización para datos multidimensionales</a></li>
+                            <li><a href="#" class="resource-link">Recursos sobre narrativa de datos y visualización para diferentes audiencias</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="session" id="analisis-sesion6">
+                <div class="session-header">
+                    <h3 class="session-title">Sesión 6: Dashboards personalizados</h3>
+                    <p class="session-description">Diseño e implementación de paneles interactivos con Streamlit.</p>
+                </div>
+                
+                <div class="session-content">
+                    <div class="time-distribution">
+                        <h4 class="time-title">Distribución del tiempo (3 horas):</h4>
+                        <ul>
+                            <li>Revisión de visualizaciones creadas (15 min)</li>
+                            <li>Primer bloque: Introducción a Streamlit (75 min)</li>
+                            <li>Descanso (15 min)</li>
+                            <li>Segundo bloque: Componentes interactivos (75 min)</li>
+                            <li>Explicación de proyecto final (15 min)</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="content-block">
+                        <h4 class="block-title">Primer bloque: Introducción a Streamlit</h4>
+                        <ul>
+                            <li>Fundamentos de Streamlit: filosofía, arquitectura y ventajas frente a otras opciones</li>
+                            <li>Configuración del entorno de desarrollo: instalación y estructura básica de proyectos</li>
+                            <li>Elementos básicos: texto, markdown, imágenes y estilos en Streamlit</li>
+                            <li>Integración con Pandas: visualización y manipulación de dataframes interactivos</li>
+                            <li>Visualizaciones estáticas: incorporación de gráficos de Matplotlib, Seaborn y Plotly</li>
+                            <li>Organización de interfaces: sidebars, pestañas, expanders y columnas</li>
+                            <li>Configuración del estado de la aplicación y manejo de caché</li>
+                            <li><em>Desarrollo guiado de una aplicación básica de análisis de datos paso a paso</em></li>
+                        </ul>
+                        
+                        <h4 class="block-title">Segundo bloque: Componentes interactivos</h4>
+                        <ul>
+                            <li>Widgets de entrada: selectbox, multiselect, sliders, input text, radio buttons</li>
+                            <li>Filtrado dinámico de datos basado en selecciones del usuario</li>
+                            <li>Gráficos interactivos: integración avanzada con Plotly y Altair</li>
+                            <li>Visualizaciones geoespaciales con st.map y bibliotecas especializadas</li>
+                            <li>Subida y procesamiento de archivos: permitir a usuarios cargar sus propios datos</li>
+                            <li>Implementación de callbacks y funciones reactivas al input del usuario</li>
+                            <li>Personalización avanzada: CSS customizado, temas y componentes de diseño</li>
+                            <li>Optimización de rendimiento: estrategias para aplicaciones con grandes volúmenes de datos</li>
+                            <li><em>Taller práctico: incorporación de elementos interactivos a la aplicación básica</em></li>
+                        </ul>
+                        
+                        <h4 class="block-title">Explicación del proyecto final</h4>
+                        <ul>
+                            <li>Objetivos y requerimientos del proyecto de dashboard interactivo</li>
+                            <li>Estructura esperada: componentes mínimos y funcionalidades obligatorias</li>
+                            <li>Proceso de desarrollo: planificación, implementación iterativa y testing</li>
+                            <li>Sugerencias para datasets de diversos dominios y complejidad</li>
+                            <li>Criterios de evaluación y expectativas para la entrega final</li>
+                            <li>Recursos adicionales y ejemplos de aplicaciones inspiradoras</li>
+                            <li><em>Sesión de preguntas y aclaración de dudas sobre el proyecto</em></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="resource-card">
+                        <h4>Recursos complementarios</h4>
+                        <ul>
+                            <li><a href="#" class="resource-link">Documentación oficial de Streamlit con ejemplos prácticos</a></li>
+                            <li><a href="#" class="resource-link">Galería de aplicaciones Streamlit con código fuente</a></li>
+                            <li><a href="#" class="resource-link">Tutorial: "Desarrollo de dashboards analíticos profesionales con Streamlit"</a></li>
+                            <li><a href="#" class="resource-link">Repositorio de componentes y extensiones populares para Streamlit</a></li>
+                            <li><a href="#" class="resource-link">Guía de mejores prácticas para diseño de interfaces de usuario en aplicaciones analíticas</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="session" id="analisis-sesion7">
+                <div class="session-header">
+                    <h3 class="session-title">Sesión 7: Proyecto End to End 1</h3>
+                    <p class="session-description">Primera parte del proyecto integrador de análisis de datos.</p>
+                </div>
+                
+                <div class="session-content">
+                    <div class="time-distribution">
+                        <h4 class="time-title">Distribución del tiempo (3 horas):</h4>
+                        <ul>
+                            <li>Definición de proyectos y metodología (30 min)</li>
+                            <li>Trabajo guiado en proyectos (120 min con descanso incluido)</li>
+                            <li>Revisión de avances y feedback (30 min)</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="content-block">
+                        <h4 class="block-title">Definición de proyectos y metodología</h4>
+                        <ul>
+                            <li>Presentación detallada de objetivos y alcance del proyecto integrador</li>
+                            <li>Revisión de metodologías ágiles aplicadas a proyectos de datos: Scrum adaptado</li>
+                            <li>Estructura del proyecto: componentes obligatorios y opcionales</li>
+                            <li>Definición de historias de usuario y criterios de aceptación específicos</li>
+                            <li>Planificación del desarrollo: desglose de tareas y estimación de tiempos</li>
+                            <li>Herramientas para gestión del proyecto: documentación, seguimiento y control</li>
+                            <li>Integración de conceptos y técnicas aprendidas en módulos anteriores</li>
+                            <li><em>Discusión abierta y aclaración de objetivos específicos por grupo/proyecto</em></li>
+                        </ul>
+                        
+                        <h4 class="block-title">Trabajo guiado en proyectos</h4>
+                        <ul>
+                            <li>Fase inicial: exploración preliminar del dataset y definición de preguntas analíticas</li>
+                            <li>Implementación de pipelines de limpieza y transformación de datos</li>
+                            <li>Desarrollo de análisis exploratorio avanzado con enfoque en insights accionables</li>
+                            <li>Creación de visualizaciones clave que respondan a preguntas de negocio</li>
+                            <li>Diseño inicial del dashboard: arquitectura, componentes y flujo de usuario</li>
+                            <li>Implementación básica de componentes interactivos y visualizaciones dinámicas</li>
+                            <li><em>Mentoría personalizada por grupos durante el desarrollo del proyecto</em></li>
+                        </ul>
+                        
+                        <h4 class="block-title">Revisión de avances y feedback</h4>
+                        <ul>
+                            <li>Presentación rápida del estado actual del proyecto por cada grupo</li>
+                            <li>Feedback técnico detallado sobre arquitectura y componentes implementados</li>
+                            <li>Recomendaciones específicas para mejorar visualizaciones y análisis</li>
+                            <li>Identificación de obstáculos y soluciones potenciales</li>
+                            <li>Próximos pasos y plan de trabajo para completar el proyecto</li>
+                            <li><em>Sesión de revisión entre pares para intercambio de ideas y enfoques</em></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="resource-card">
+                        <h4>Recursos complementarios</h4>
+                        <ul>
+                            <li><a href="#" class="resource-link">Guía de mejores prácticas para proyectos end-to-end de análisis de datos</a></li>
+                            <li><a href="#" class="resource-link">Plantillas para documentación y presentación de proyectos analíticos</a></li>
+                            <li><a href="#" class="resource-link">Ejemplos de proyectos exitosos de análisis de datos con código</a></li>
+                            <li><a href="#" class="resource-link">Técnicas avanzadas de storytelling con datos para presentaciones</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="session" id="analisis-sesion8">
+                <div class="session-header">
+                    <h3 class="session-title">Sesión 8: Proyecto End to End 2</h3>
+                    <p class="session-description">Finalización y presentación del proyecto integrador.</p>
+                </div>
+                
+                <div class="session-content">
+                    <div class="time-distribution">
+                        <h4 class="time-title">Distribución del tiempo (3 horas):</h4>
+                        <ul>
+                            <li>Resolución de dudas finales (30 min)</li>
+                            <li>Finalización de proyectos (60 min)</li>
+                            <li>Presentaciones (75 min)</li>
+                            <li>Cierre del módulo y próximos pasos (15 min)</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="content-block">
+                        <h4 class="block-title">Resolución de dudas finales</h4>
+                        <ul>
+                            <li>Sesión abierta de preguntas técnicas sobre implementaciones específicas</li>
+                            <li>Revisión de casos particulares y desafíos encontrados durante el desarrollo</li>
+                            <li>Clarificación de aspectos avanzados de las tecnologías utilizadas</li>
+                            <li>Consejos para optimización de rendimiento y experiencia de usuario</li>
+                            <li>Guía para documentación técnica efectiva del proyecto</li>
+                            <li>Recomendaciones para presentaciones profesionales de proyectos de datos</li>
+                            <li><em>Última revisión personalizada por grupos antes de la finalización</em></li>
+                        </ul>
+                        
+                        <h4 class="block-title">Finalización de proyectos</h4>
+                        <ul>
+                            <li>Tiempo de trabajo dedicado para ajustes finales de los proyectos</li>
+                            <li>Refinamiento de visualizaciones y narrativa de los hallazgos</li>
+                            <li>Optimización de interfaces y ajuste de componentes interactivos</li>
+                            <li>Validación técnica final: pruebas de funcionalidad y rendimiento</li>
+                            <li>Preparación de material para la presentación: demostraciones y aspectos destacados</li>
+                            <li>Organización de documentación técnica complementaria</li>
+                            <li><em>Mentoría personalizada para resolver últimos problemas técnicos</em></li>
+                        </ul>
+                        
+                        <h4 class="block-title">Presentaciones</h4>
+                        <ul>
+                            <li>Presentación formal de cada proyecto al grupo completo (10-15 minutos por grupo)</li>
+                            <li>Demostración en vivo de la aplicación desarrollada: funcionalidades e interactividad</li>
+                            <li>Explicación de aspectos técnicos destacados: arquitectura, algoritmos y soluciones innovadoras</li>
+                            <li>Discusión de insights descubiertos y valor del análisis para el contexto de aplicación</li>
+                            <li>Reflexión sobre desafíos enfrentados y soluciones implementadas</li>
+                            <li>Sesión de preguntas y respuestas por parte de instructores y compañeros</li>
+                            <li>Feedback constructivo de los instructores y participantes</li>
+                        </ul>
+                        
+                        <h4 class="block-title">Cierre del módulo y próximos pasos</h4>
+                        <ul>
+                            <li>Recapitulación de conceptos y habilidades clave desarrolladas en el módulo</li>
+                            <li>Evolución esperada de los proyectos: posibilidades de expansión y mejora</li>
+                            <li>Conexión con el siguiente módulo: aplicación de los conocimientos en Computer Vision</li>
+                            <li>Recursos recomendados para profundización en temas específicos</li>
+                            <li>Oportunidades profesionales relacionadas con el análisis y preparación de datos</li>
+                            <li>Reflexión grupal sobre aprendizajes y logros del módulo</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="resource-card">
+                        <h4>Recursos complementarios</h4>
+                        <ul>
+                            <li><a href="#" class="resource-link">Guía para presentaciones efectivas de proyectos de datos</a></li>
+                            <li><a href="#" class="resource-link">Checklist de calidad para dashboards analíticos profesionales</a></li>
+                            <li><a href="#" class="resource-link">Recursos avanzados para continuar el aprendizaje en ciencia de datos</a></li>
+                            <li><a href="#" class="resource-link">Comunidades y eventos recomendados para científicos de datos</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Computer Vision -->
+        <div class="module-container" id="vision">
+            <h2 class="module-title">Módulo III: Computer Vision</h2>
+            <p class="module-description">Desde los fundamentos hasta técnicas avanzadas de visión por computador, incluyendo redes neuronales convolucionales, detección de objetos, segmentación y modelos generativos, con implementaciones prácticas y proyectos aplicados.</p>
+            
+            <div class="module-intro">
+                <p>Este módulo ofrece un recorrido completo por el campo de la visión por computador, desde sus principios fundamentales hasta las técnicas más avanzadas utilizadas en la industria. A través de un enfoque eminentemente práctico, los participantes aprenderán a procesar, analizar e interpretar imágenes digitales utilizando herramientas de programación y frameworks de deep learning especializados.</p>
+                <p>A lo largo de las sesiones, se abordará la evolución desde técnicas clásicas hasta los modelos modernos basados en redes neuronales convolucionales y transformers, culminando con la implementación de un proyecto integral que demuestre las capacidades adquiridas.</p>
+            </div>
+            
+            <div class="what-youll-learn">
+                <h4>Lo que aprenderás</h4>
+                <ul>
+                    <li>Implementar operaciones básicas de procesamiento y transformación de imágenes</li>
+                    <li>Aplicar técnicas de detección y extracción de características</li>
+                    <li>Diseñar y entrenar redes neuronales convolucionales para clasificación de imágenes</li>
+                    <li>Implementar detección y reconocimiento de objetos con YOLO y otras arquitecturas</li>
+                    <li>Desarrollar modelos de segmentación semántica y de instancias</li>
+                    <li>Explorar arquitecturas avanzadas como Vision Transformers</li>
+                    <li>Trabajar con modelos generativos (VAEs, GANs, modelos de difusión)</li>
+                    <li>Desarrollar aplicaciones de computer vision para problemas reales</li>
+                </ul>
+            </div>
+            
+            <div class="prerequisites">
+                <h4>Prerrequisitos</h4>
+                <ul>
+                    <li>Sólidos conocimientos de programación en Python</li>
+                    <li>Fundamentos de álgebra lineal y cálculo</li>
+                    <li>Familiaridad básica con redes neuronales y deep learning</li>
+                    <li>Experiencia previa con bibliotecas como NumPy y matplotlib</li>
+                    <li>Nociones básicas sobre formatos de imagen digital</li>
+                </ul>
+            </div>
+            
+            <div class="session" id="vision-sesion1">
+                <div class="session-header">
+                    <h3 class="session-title">Sesión 1: Introducción al Computer Vision</h3>
+                    <p class="session-description">Fundamentos básicos de la visión por computador y su importancia en la inteligencia artificial.</p>
+                </div>
+                
+                <div class="session-content">
+                    <div class="time-distribution">
+                        <h4 class="time-title">Distribución del tiempo (3 horas):</h4>
+                        <ul>
+                            <li>Presentación y objetivos del módulo (15 min)</li>
+                            <li>Primer bloque: Fundamentos de la visión por computador (75 min)</li>
+                            <li>Descanso (15 min)</li>
+                            <li>Segundo bloque: Representación y manipulación de imágenes (75 min)</li>
+                            <li>Explicación de ejercicios para casa (15 min)</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="content-block">
+                        <h4 class="block-title">Primer bloque: Fundamentos de la visión por computador</h4>
+                        <ul>
+                            <li>Historia y evolución del computer vision: desde procesamiento clásico hasta deep learning</li>
+                            <li>Aplicaciones actuales y futuras de la visión por computador en diferentes industrias</li>
+                            <li>El pipeline clásico de computer vision vs. enfoques modernos basados en redes neuronales</li>
+                            <li>Desafíos y limitaciones en el campo: oclusión, variabilidad, iluminación, escala</li>
+                            <li>Métricas comunes de evaluación en tareas de visión</li>
+                            <li><em>Discusión de casos de uso relevantes y análisis de impacto en la industria</em></li>
+                        </ul>
+                        
+                        <h4 class="block-title">Segundo bloque: Representación y manipulación de imágenes</h4>
+                        <ul>
+                            <li>Conceptos básicos: píxeles, canales, formato RGB/RGBA, profundidad de color</li>
+                            <li>Representación matricial de imágenes y operaciones básicas</li>
+                            <li>Introducción a operaciones básicas con OpenCV y PIL: carga, visualización, manipulación</li>
+                            <li>Técnicas de preprocesamiento de imágenes: redimensionamiento, recorte, rotación</li>
+                            <li>Manejo de formatos y optimización de almacenamiento</li>
+                            <li><em>Ejercicios prácticos con bibliotecas de Python usando datasets reales</em></li>
+                        </ul>
+                        
+                        <h4 class="block-title">Ejercicio para casa</h4>
+                        <ul>
+                            <li>Configuración del entorno de desarrollo para computer vision (Python, OpenCV, PIL)</li>
+                            <li>Implementación de operaciones básicas sobre imágenes: transformaciones y filtros simples</li>
+                            <li>Análisis de un caso práctico seleccionado: aplicación a imágenes del mundo real</li>
+                            <li>Documentación del proceso y resultados con visualizaciones comparativas</li>
+                            <li><em>Instrucciones detalladas para documentar resultados y observaciones técnicas</em></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="session" id="vision-sesion2">
+                <div class="session-header">
+                    <h3 class="session-title">Sesión 2: Procesamiento de imágenes</h3>
+                    <p class="session-description">Técnicas avanzadas de procesamiento y mejora de imágenes digitales.</p>
+                </div>
+                
+                <div class="session-content">
+                    <div class="time-distribution">
+                        <h4 class="time-title">Distribución del tiempo (3 horas):</h4>
+                        <ul>
+                            <li>Revisión de ejercicios de la sesión anterior (15 min)</li>
+                            <li>Primer bloque: Filtros y transformaciones (75 min)</li>
+                            <li>Descanso (15 min)</li>
+                            <li>Segundo bloque: Mejora de imágenes (75 min)</li>
+                            <li>Explicación de ejercicios para casa (15 min)</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="content-block">
+                        <h4 class="block-title">Primer bloque: Filtros y transformaciones</h4>
+                        <ul>
+                            <li>Transformaciones geométricas: traslación, rotación, escalado y proyecciones</li>
+                            <li>Filtros de convolución: fundamentos matemáticos e implementación eficiente</li>
+                            <li>Filtros de suavizado: media, gaussiano, bilateral y de preservación de bordes</li>
+                            <li>Operadores de detección de bordes: Sobel, Prewitt, Laplaciano, Canny</li>
+                            <li>Transformaciones morfológicas: erosión, dilatación, apertura, cierre</li>
+                            <li>Filtros en el dominio de la frecuencia: transformada de Fourier y aplicaciones</li>
+                            <li>Implementación eficiente con OpenCV y NumPy: optimización de operaciones</li>
+                            <li><em>Ejercicios guiados aplicando diferentes filtros a casos prácticos</em></li>
+                        </ul>
+                        
+                        <h4 class="block-title">Segundo bloque: Mejora de imágenes</h4>
+                        <ul>
+                            <li>Ajustes de brillo, contraste y corrección gamma: teoría y aplicación</li>
+                            <li>Técnicas de ecualización de histograma: global, adaptativa y CLAHE</li>
+                            <li>Reducción de ruido: filtros no lineales, bilateral, NLM, BM3D</li>
+                            <li>Mejora de nitidez: unsharp masking, deconvolución, filtros adaptativos</li>
+                            <li>Corrección de color: balance de blancos, normalización, transferencia de color</li>
+                            <li>Fusión de imágenes: técnicas para combinar información de múltiples fuentes</li>
+                            <li>Evaluación cuantitativa de mejoras: métricas de calidad de imagen</li>
+                            <li><em>Ejercicios prácticos de restauración y mejora de imágenes deterioradas</em></li>
+                        </ul>
+                        
+                        <h4 class="block-title">Ejercicio para casa</h4>
+                        <ul>
+                            <li>Implementación de un pipeline completo de procesamiento para un conjunto de imágenes asignado</li>
+                            <li>Desarrollo de funciones para al menos cinco operaciones de filtrado y mejora diferentes</li>
+                            <li>Experimentación con parámetros y evaluación comparativa de resultados</li>
+                            <li>Documentación detallada del proceso, decisiones técnicas y análisis de resultados</li>
+                            <li>Preparación de visualizaciones comparativas para mostrar efectos de las técnicas aplicadas</li>
+                            <li><em>Desafío opcional: implementación de un algoritmo avanzado de mejora de imágenes</em></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="resource-card">
+                        <h4>Recursos complementarios</h4>
+                        <ul>
+                            <li><a href="#" class="resource-link">Guía completa de filtros y transformaciones con OpenCV</a></li>
+                            <li><a href="#" class="resource-link">Implementaciones optimizadas de algoritmos de mejora de imágenes</a></li>
+                            <li><a href="#" class="resource-link">Paper: "Estado del arte en técnicas de restauración de imágenes"</a></li>
+                            <li><a href="#" class="resource-link">Notebook: Análisis comparativo de métodos de reducción de ruido</a></li>
+                            <li><a href="#" class="resource-link">Tutorial: Implementación avanzada de transformaciones morfológicas</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="session" id="vision-sesion3">
+                <div class="session-header">
+                    <h3 class="session-title">Sesión 3: Detección de características</h3>
+                    <p class="session-description">Identificación y extracción de características relevantes en imágenes.</p>
+                </div>
+                
+                <div class="session-content">
+                    <div class="time-distribution">
+                        <h4 class="time-title">Distribución del tiempo (3 horas):</h4>
+                        <ul>
+                            <li>Recapitulación de conceptos clave (15 min)</li>
+                            <li>Primer bloque: Detección de bordes y esquinas (75 min)</li>
+                            <li>Descanso (15 min)</li>
+                            <li>Segundo bloque: Descriptores de características (75 min)</li>
+                            <li>Explicación de ejercicios para casa (15 min)</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="content-block">
+                        <h4 class="block-title">Primer bloque: Detección de bordes y esquinas</h4>
+                        <ul>
+                            <li>Teoría avanzada de detección de bordes: gradientes, bordes y análisis multiescala</li>
+                            <li>Implementación detallada del algoritmo de Canny: pasos y optimización</li>
+                            <li>Detección de esquinas: fundamentos matemáticos e interpretación geométrica</li>
+                            <li>Detector de Harris: teoría, implementación y parámetros críticos</li>
+                            <li>Detectores modernos: Shi-Tomasi, FAST, SUSAN y análisis comparativo</li>
+                            <li>Técnicas de análisis sub-píxel para localización precisa</li>
+                            <li>Evaluación de detectores: robustez, repetibilidad, precisión</li>
+                            <li><em>Ejercicios prácticos: implementación y comparación de detectores en escenarios diversos</em></li>
+                        </ul>
+                        
+                        <h4 class="block-title">Segundo bloque: Descriptores de características</h4>
+                        <ul>
+                            <li>Fundamentos de descriptores locales: propiedades deseables e invariancias</li>
+                            <li>Descriptores basados en histogramas: HOG, LBP, BRIEF</li>
+                            <li>SIFT: teoría completa, implementación y aplicaciones</li>
+                            <li>SURF: principios, comparación con SIFT y optimizaciones</li>
+                            <li>Descriptores binarios: ORB, BRISK, FREAK - eficiencia y rendimiento</li>
+                            <li>Matching de características: técnicas robustas y filtrado de correspondencias</li>
+                            <li>Aplicaciones prácticas: registro de imágenes, reconocimiento de objetos, panoramas</li>
+                            <li><em>Taller: desarrollo de un sistema de reconocimiento basado en características</em></li>
+                        </ul>
+                        
+                        <h4 class="block-title">Ejercicio para casa</h4>
+                        <ul>
+                            <li>Implementación de un sistema completo de detección y descripción de características</li>
+                            <li>Comparación experimental de al menos tres detectores y tres descriptores diferentes</li>
+                            <li>Desarrollo de una aplicación de emparejamiento de imágenes con transformaciones geométricas</li>
+                            <li>Evaluación cuantitativa de rendimiento: precisión, recall, eficiencia computacional</li>
+                            <li>Documentación detallada de implementación y análisis experimental</li>
+                            <li><em>Desafío opcional: implementación de un sistema de stitching para creación de panoramas</em></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="resource-card">
+                        <h4>Recursos complementarios</h4>
+                        <ul>
+                            <li><a href="#" class="resource-link">Tutorial avanzado: Implementación efectiva de detectores de características</a></li>
+                            <li><a href="#" class="resource-link">Biblioteca comparativa de descriptores locales con código fuente</a></li>
+                            <li><a href="#" class="resource-link">Paper: "Evaluación sistemática de descriptores modernos para visión por computador"</a></li>
+                            <li><a href="#" class="resource-link">Guía práctica para matching robusto de características en escenarios desafiantes</a></li>
+                            <li><a href="#" class="resource-link">Ejemplos de aplicaciones basadas en características: código y datasets</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="session" id="vision-sesion4">
+                <div class="session-header">
+                    <h3 class="session-title">Sesión 4: Redes Convolucionales</h3>
+                    <p class="session-description">Fundamentos y aplicaciones de CNNs para procesamiento de imágenes.</p>
+                </div>
+                
+                <div class="session-content">
+                    <div class="time-distribution">
+                        <h4 class="time-title">Distribución del tiempo (3 horas):</h4>
+                        <ul>
+                            <li>Revisión de avances y dudas (15 min)</li>
+                            <li>Primer bloque: Fundamentos de CNNs (75 min)</li>
+                            <li>Descanso (15 min)</li>
+                            <li>Segundo bloque: Implementación con PyTorch (75 min)</li>
+                            <li>Explicación de ejercicios para casa (15 min)</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="content-block">
+                        <h4 class="block-title">Primer bloque: Fundamentos de CNNs</h4>
+                        <ul>
+                            <li>Evolución histórica: de Neocognitron a LeNet y arquitecturas modernas</li>
+                            <li>Fundamentos matemáticos: operación de convolución, campos receptivos y equivarianza</li>
+                            <li>Componentes básicos: capas convolucionales, pooling, activaciones, normalización</li>
+                            <li>Propiedades fundamentales: compartición de parámetros, invarianza a traslaciones</li>
+                            <li>Backpropagation en CNNs: cálculo eficiente de gradientes</li>
+                            <li>Arquitecturas clásicas: AlexNet, VGG, GoogLeNet, ResNet - diseño e innovaciones</li>
+                            <li>Visualización y comprensión: mapas de activación, filtros, Grad-CAM</li>
+                            <li>Problemas comunes: vanishing gradients, sobreajuste, representación</li>
+                            <li><em>Análisis conceptual de arquitecturas y sus componentes claves</em></li>
+                        </ul>
+                        
+                        <h4 class="block-title">Segundo bloque: Implementación con PyTorch</h4>
+                        <ul>
+                            <li>Introducción a PyTorch para visión: tensores, operaciones y autograd</li>
+                            <li>Pipeline de datos: datasets, transforms, DataLoader, augmentación</li>
+                            <li>Construcción modular de CNNs: nn.Module, capas predefinidas, bloques personalizados</li>
+                            <li>Ciclo de entrenamiento: forward, backward, optimizadores, y planificadores</li>
+                            <li>Técnicas de regularización: data augmentation, dropout, batch normalization</li>
+                            <li>Estrategias de inicialización y configuración de hiperparámetros</li>
+                            <li>Transfer learning: uso efectivo de modelos pre-entrenados</li>
+                            <li>Monitoreo y visualización con TensorBoard o similar</li>
+                            <li><em>Implementación guiada: construcción e entrenamiento de una CNN para clasificación</em></li>
+                        </ul>
+                        
+                        <h4 class="block-title">Ejercicio para casa</h4>
+                        <ul>
+                            <li>Desarrollo de un clasificador de imágenes con CNN para un dataset desafiante asignado</li>
+                            <li>Implementación de al menos dos arquitecturas diferentes y comparación de rendimiento</li>
+                            <li>Aplicación de técnicas avanzadas de data augmentation y regularización</li>
+                            <li>Experimentación con transfer learning desde modelos pre-entrenados</li>
+                            <li>Análisis de resultados: matrices de confusión, curvas ROC, visualizaciones</li>
+                            <li>Documentación detallada del proceso, experimentos y conclusiones</li>
+                            <li><em>Desafío adicional: interpretabilidad mediante visualización de características aprendidas</em></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="resource-card">
+                        <h4>Recursos complementarios</h4>
+                        <ul>
+                            <li><a href="#" class="resource-link">Guía completa de PyTorch para visión por computador</a></li>
+                            <li><a href="#" class="resource-link">Repositorio de implementaciones de arquitecturas CNN clásicas</a></li>
+                            <li><a href="#" class="resource-link">Tutorial: Técnicas avanzadas de regularización para CNNs</a></li>
+                            <li><a href="#" class="resource-link">Paper: "Visualización e interpretación de representaciones en redes convolucionales"</a></li>
+                            <li><a href="#" class="resource-link">Notebook: Estrategias efectivas de transfer learning para diferentes dominios</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="session" id="vision-sesion5">
+                <div class="session-header">
+                    <h3 class="session-title">Sesión 5: Detección de objetos</h3>
+                    <p class="session-description">Frameworks y técnicas para la detección de objetos en imágenes.</p>
+                </div>
+                
+                <div class="session-content">
+                    <div class="time-distribution">
+                        <h4 class="time-title">Distribución del tiempo (3 horas):</h4>
+                        <ul>
+                            <li>Repaso del trabajo de la semana anterior (15 min)</li>
+                            <li>Primer bloque: Fundamentos de detección (75 min)</li>
+                            <li>Descanso (15 min)</li>
+                            <li>Segundo bloque: Implementación de YOLO (75 min)</li>
+                            <li>Explicación de ejercicios para casa (15 min)</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="content-block">
+                        <h4 class="block-title">Primer bloque: Fundamentos de detección</h4>
+                        <ul>
+                            <li>Formulación del problema de detección de objetos: localización y clasificación</li>
+                            <li>Evolución histórica: de sliding window a detectores basados en deep learning</li>
+                            <li>Arquitecturas de dos etapas: R-CNN, Fast R-CNN, Faster R-CNN</li>
+                            <li>Detectores de una etapa: SSD, RetinaNet - eficiencia vs precisión</li>
+                            <li>Representación de bounding boxes: formatos, transformaciones y manipulación</li>
+                            <li>Métricas de evaluación: IoU, mAP, Precision-Recall, COCO metrics</li>
+                            <li>Desafíos específicos: escala, oclusión, densidad de objetos, formas variables</li>
+                            <li>Estrategias de anotación y creación de datasets para detección</li>
+                            <li><em>Análisis comparativo de arquitecturas y sus ventajas en diferentes escenarios</em></li>
+                        </ul>
+                        
+                        <h4 class="block-title">Segundo bloque: Implementación de YOLO</h4>
+                        <ul>
+                            <li>Fundamentos de YOLO: arquitectura, funcionamiento y evolución (v1-v8)</li>
+                            <li>Diseño de la red: backbone, neck y detection head</li>
+                            <li>Sistema de anchor boxes y grid cells: fundamentos matemáticos</li>
+                            <li>Funciones de pérdida: componentes y balanceo (objectness, clasificación, regresión)</li>
+                            <li>Estrategias de entrenamiento: inicialización, optimización, data augmentation</li>
+                            <li>Implementación con PyTorch o frameworks especializados (Ultralytics)</li>
+                            <li>Post-procesamiento: NMS, threshold adjustment, filtering</li>
+                            <li>Optimización de rendimiento: cuantización, pruning, deployment</li>
+                            <li><em>Implementación guiada: configuración y entrenamiento de un detector YOLO</em></li>
+                        </ul>
+                        
+                        <h4 class="block-title">Ejercicio para casa</h4>
+                        <ul>
+                            <li>Implementación de un detector de objetos personalizado con YOLO para un caso de uso específico</li>
+                            <li>Preparación y anotación de un pequeño dataset propio (o adaptación de uno existente)</li>
+                            <li>Entrenamiento del modelo con técnicas de transfer learning y fine-tuning</li>
+                            <li>Experimentación con diferentes configuraciones y análisis de trade-offs</li>
+                            <li>Evaluación exhaustiva: curvas PR, análisis de errores, visualización de detecciones</li>
+                            <li>Documentación del proceso completo y conclusiones sobre efectividad</li>
+                            <li><em>Desafío adicional: implementación de tracking de objetos sobre el detector entrenado</em></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="resource-card">
+                        <h4>Recursos complementarios</h4>
+                        <ul>
+                            <li><a href="#" class="resource-link">Guía completa de implementación de YOLO con PyTorch</a></li>
+                            <li><a href="#" class="resource-link">Repositorio de Ultralytics YOLOv8 con ejemplos detallados</a></li>
+                            <li><a href="#" class="resource-link">Tutorial: Creación y anotación eficiente de datasets para detección</a></li>
+                            <li><a href="#" class="resource-link">Paper: "Análisis comparativo de detectores modernos: precisión vs velocidad"</a></li>
+                            <li><a href="#" class="resource-link">Herramientas y scripts para depuración de detectores en entrenamiento</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="session" id="vision-sesion6">
+                <div class="session-header">
+                    <h3 class="session-title">Sesión 6: Segmentación semántica</h3>
+                    <p class="session-description">Clasificación a nivel de píxel y técnicas de segmentación avanzadas.</p>
+                </div>
+                
+                <div class="session-content">
+                    <div class="time-distribution">
+                        <h4 class="time-title">Distribución del tiempo (3 horas):</h4>
+                        <ul>
+                            <li>Revisión de implementaciones (15 min)</li>
+                            <li>Primer bloque: Fundamentos de segmentación (75 min)</li>
+                            <li>Descanso (15 min)</li>
+                            <li>Segundo bloque: Arquitecturas U-Net y similares (75 min)</li>
+                            <li>Explicación de ejercicios para casa (15 min)</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="content-block">
+                        <h4 class="block-title">Primer bloque: Fundamentos de segmentación</h4>
+                        <ul>
+                            <li>Tipos de segmentación: semántica, de instancias y panóptica - diferencias y usos</li>
+                            <li>Evolución histórica: de métodos tradicionales a deep learning</li>
+                            <li>Formulación matemática del problema: clasificación a nivel de píxel</li>
+                            <li>Métodos clásicos: thresholding, region growing, watershed, graph cuts</li>
+                            <li>Representación de datos: formatos de máscara, encodings, conversiones</li>
+                            <li>Métricas de evaluación: IoU, Dice coefficient, boundary F1 score, panoptic quality</li>
+                            <li>Desafíos específicos: límites imprecisos, clases desbalanceadas, resolución</li>
+                            <li>Técnicas de anotación eficiente para segmentación: herramientas y estrategias</li>
+                            <li><em>Análisis de casos de uso en diferentes dominios: médico, satelital, industrial</em></li>
+                        </ul>
+                        
+                        <h4 class="block-title">Segundo bloque: Arquitecturas U-Net y similares</h4>
+                        <ul>
+                            <li>Arquitectura U-Net: diseño, componentes, camino de contracción y expansión</li>
+                            <li>Mecanismo de skip connections: fundamentos e importancia</li>
+                            <li>Variantes modernas: U-Net++, Attention U-Net, TransUNet</li>
+                            <li>Arquitecturas alternativas: SegNet, DeepLab, PSPNet, HRNetV2</li>
+                            <li>Funciones de pérdida específicas para segmentación: cross-entropy, Dice, focal, boundary</li>
+                            <li>Implementación eficiente con PyTorch: datasets, augmentación, entrenamiento</li>
+                            <li>Técnicas de inferencia: sliding window, test-time augmentation, ensemble</li>
+                            <li>Post-procesamiento: refinamiento de contornos, conectividad, filtrado</li>
+                            <li><em>Implementación guiada: construcción y entrenamiento de una red U-Net</em></li>
+                        </ul>
+                        
+                        <h4 class="block-title">Ejercicio para casa</h4>
+                        <ul>
+                            <li>Implementación de un modelo de segmentación semántica para un dataset asignado</li>
+                            <li>Experimentación con al menos dos arquitecturas diferentes y comparación de rendimiento</li>
+                            <li>Diseño e implementación de técnicas de augmentación específicas para segmentación</li>
+                            <li>Análisis de diferentes funciones de pérdida y su impacto en los resultados</li>
+                            <li>Evaluación cualitativa y cuantitativa exhaustiva con visualizaciones explicativas</li>
+                            <li>Documentación detallada del proceso, experimentos y análisis de errores</li>
+                            <li><em>Desafío adicional: implementación de segmentación en tiempo real para video</em></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="resource-card">
+                        <h4>Recursos complementarios</h4>
+                        <ul>
+                            <li><a href="#" class="resource-link">Implementación detallada de U-Net y variantes con PyTorch</a></li>
+                            <li><a href="#" class="resource-link">Colección de funciones de pérdida específicas para segmentación</a></li>
+                            <li><a href="#" class="resource-link">Tutorial: Técnicas avanzadas de augmentación para tareas de segmentación</a></li>
+                            <li><a href="#" class="resource-link">Paper: "Panorama actual de métodos de segmentación semántica profunda"</a></li>
+                            <li><a href="#" class="resource-link">Herramientas para visualización y análisis de resultados de segmentación</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="session" id="vision-sesion7">
+                <div class="session-header">
+                    <h3 class="session-title">Sesión 7: Arquitecturas avanzadas</h3>
+                    <p class="session-description">Vision Transformers y modelos generativos para imágenes.</p>
+                </div>
+                
+                <div class="session-content">
+                    <div class="time-distribution">
+                        <h4 class="time-title">Distribución del tiempo (3 horas):</h4>
+                        <ul>
+                            <li>Recapitulación de técnicas aprendidas (15 min)</li>
+                            <li>Primer bloque: Vision Transformers (75 min)</li>
+                            <li>Descanso (15 min)</li>
+                            <li>Segundo bloque: Modelos generativos (75 min)</li>
+                            <li>Instrucciones para proyecto final (15 min)</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="content-block">
+                        <h4 class="block-title">Primer bloque: Vision Transformers</h4>
+                        <ul>
+                            <li>Fundamentos de arquitecturas Transformer: self-attention, multi-head attention, feed-forward</li>
+                            <li>Adaptación para visión: tokenización de imágenes, posición y parches</li>
+                            <li>Arquitectura ViT: diseño, implementación y variantes</li>
+                            <li>Modelos híbridos: CNN-Transformer (Swin Transformer, ConViT, CVT)</li>
+                            <li>Mecanismos de atención espacial: adaptaciones para tareas de visión</li>
+                            <li>Técnicas de entrenamiento: regularización, estrategias de data augmentation</li>
+                            <li>Transformers para tareas densas: segmentación, detección, pose estimation</li>
+                            <li>Análisis comparativo con CNNs: ventajas, desventajas, eficiencia, escalabilidad</li>
+                            <li><em>Implementación práctica: adaptación de un Vision Transformer pre-entrenado</em></li>
+                        </ul>
+                        
+                        <h4 class="block-title">Segundo bloque: Modelos generativos</h4>
+                        <ul>
+                            <li>Panorama de modelos generativos: taxonomía y evolución</li>
+                            <li>Autoencoders variacionales (VAE): teoría, implementación y aplicaciones</li>
+                            <li>Redes generativas adversarias (GAN): arquitectura, entrenamiento, variantes</li>
+                            <li>Aplicaciones específicas: super-resolución, inpainting, transferencia de estilo</li>
+                            <li>Modelos de difusión: fundamentos matemáticos, proceso de difusión y denoising</li>
+                            <li>Stable Diffusion: arquitectura, funcionamiento y fine-tuning</li>
+                            <li>Evaluación de modelos generativos: métricas cuantitativas y cualitativas</li>
+                            <li>Consideraciones éticas y sociales en generación de imágenes</li>
+                            <li><em>Demostración práctica: generación controlada de imágenes y aplicaciones</em></li>
+                        </ul>
+                        
+                        <h4 class="block-title">Instrucciones para proyecto final</h4>
+                        <ul>
+                            <li>Presentación de opciones de proyectos finales: temáticas y alcance</li>
+                            <li>Requisitos técnicos: componentes obligatorios y opcionales</li>
+                            <li>Metodología sugerida: planificación, experimentación y documentación</li>
+                            <li>Criterios de evaluación: originalidad, implementación técnica, resultados</li>
+                            <li>Recursos disponibles: datasets, modelos pre-entrenados, infraestructura</li>
+                            <li>Estructura del informe final y presentación</li>
+                            <li>Ejemplos de proyectos exitosos de años anteriores</li>
+                            <li><em>Sesión de preguntas y formación de equipos de trabajo</em></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="resource-card">
+                        <h4>Recursos complementarios</h4>
+                        <ul>
+                            <li><a href="#" class="resource-link">Implementación detallada de Vision Transformers con PyTorch</a></li>
+                            <li><a href="#" class="resource-link">Repositorio de modelos generativos con ejemplos de código</a></li>
+                            <li><a href="#" class="resource-link">Tutorial: Fine-tuning de modelos de difusión para aplicaciones específicas</a></li>
+                            <li><a href="#" class="resource-link">Paper: "Análisis comparativo de Transformers vs CNNs en tareas de visión"</a></li>
+                            <li><a href="#" class="resource-link">Guía para proyectos de investigación en visión por computador</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="session" id="vision-sesion8">
+                <div class="session-header">
+                    <h3 class="session-title">Sesión 8: Proyecto final</h3>
+                    <p class="session-description">Desarrollo y presentación de un proyecto integral de Computer Vision.</p>
+                </div>
+                
+                <div class="session-content">
+                    <div class="time-distribution">
+                        <h4 class="time-title">Distribución del tiempo (3 horas):</h4>
+                        <ul>
+                            <li>Resolución de dudas finales (30 min)</li>
+                            <li>Finalización de proyectos (60 min)</li>
+                            <li>Presentaciones (75 min)</li>
+                            <li>Cierre del módulo y evaluación (15 min)</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="content-block">
+                        <h4 class="block-title">Resolución de dudas finales</h4>
+                        <ul>
+                            <li>Sesión abierta para consultas técnicas específicas sobre los proyectos</li>
+                            <li>Revisión de conceptos avanzados a petición de los participantes</li>
+                            <li>Solución de problemas de implementación o entrenamiento de modelos</li>
+                            <li>Consejos para optimización de rendimiento y presentación de resultados</li>
+                            <li>Asesoría personalizada para casos específicos y soluciones técnicas</li>
+                            <li>Recomendaciones para la evaluación y análisis crítico de resultados</li>
+                            <li><em>Apoyo individualizado para resolver últimos obstáculos técnicos</em></li>
+                        </ul>
+                        
+                        <h4 class="block-title">Finalización de proyectos</h4>
+                        <ul>
+                            <li>Tiempo dedicado para ajustes finales y optimizaciones</li>
+                            <li>Preparación de visualizaciones y demostraciones para la presentación</li>
+                            <li>Refinamiento de implementaciones y corrección de errores</li>
+                            <li>Completar documentación técnica y análisis de resultados</li>
+                            <li>Organización del código para compartir y explicar durante la presentación</li>
+                            <li>Preparación de material visual para la exposición</li>
+                            <li><em>Mentoría individualizada para garantizar proyectos completos y funcionales</em></li>
+                        </ul>
+                        
+                        <h4 class="block-title">Presentaciones</h4>
+                        <ul>
+                            <li>Exposición de cada proyecto (10-15 minutos por grupo)</li>
+                            <li>Explicación de la problemática abordada y enfoque metodológico</li>
+                            <li>Demostración en vivo de la implementación y resultados</li>
+                            <li>Discusión de desafíos técnicos enfrentados y soluciones implementadas</li>
+                            <li>Análisis crítico de resultados y limitaciones del enfoque</li>
+                            <li>Comparativa con el estado del arte y posibles mejoras futuras</li>
+                            <li>Sesión de preguntas y respuestas con instructores y compañeros</li>
+                            <li><em>Feedback constructivo para cada proyecto presentado</em></li>
+                        </ul>
+                        
+                        <h4 class="block-title">Cierre del módulo y evaluación</h4>
+                        <ul>
+                            <li>Recapitulación de los conceptos clave del módulo de Computer Vision</li>
+                            <li>Evaluación general del aprendizaje y progresión de habilidades</li>
+                            <li>Discusión sobre tendencias actuales y futuras en el campo</li>
+                            <li>Conexión con el siguiente módulo: aplicación de los conocimientos en NLP</li>
+                            <li>Recursos recomendados para profundización posterior</li>
+                            <li>Oportunidades profesionales relacionadas con Computer Vision</li>
+                            <li><em>Reflexión colectiva sobre el aprendizaje y aplicaciones prácticas</em></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="resource-card">
+                        <h4>Recursos complementarios</h4>
+                        <ul>
+                            <li><a href="#" class="resource-link">Guía para presentaciones efectivas de proyectos técnicos</a></li>
+                            <li><a href="#" class="resource-link">Repositorio de proyectos destacados de Computer Vision</a></li>
+                            <li><a href="#" class="resource-link">Recursos avanzados para continuar aprendizaje en visión por computador</a></li>
+                            <li><a href="#" class="resource-link">Comunidades y conferencias relevantes en el campo</a></li>
+                            <li><a href="#" class="resource-link">Guía de transición entre Computer Vision y NLP: conceptos compartidos</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Procesamiento del Lenguaje Natural -->
+        <div class="module-container" id="nlp">
+            <h2 class="module-title">Módulo IV: Procesamiento del Lenguaje Natural</h2>
+            <p class="module-description">Exploración completa del NLP, desde fundamentos lingüísticos y representaciones vectoriales hasta modelos transformers y LLMs, con implementaciones prácticas y aplicaciones avanzadas en campos diversos.</p>
+            
+            <div class="module-intro">
+                <p>Este módulo proporciona una inmersión profunda en el campo del procesamiento del lenguaje natural, siguiendo una progresión desde los fundamentos teóricos hasta las técnicas más avanzadas empleadas actualmente en la industria. A lo largo del curso, se combina la teoría lingüística con implementaciones prácticas, permitiendo a los participantes desarrollar una comprensión integral de cómo las máquinas pueden procesar, entender y generar lenguaje humano.</p>
+                <p>Desde representaciones vectoriales básicas hasta arquitecturas transformer y LLMs, el programa cubre todo el espectro de tecnologías NLP, culminando con técnicas avanzadas para el entrenamiento e inferencia de modelos de lenguaje de gran escala.</p>
+            </div>
+            
+            <div class="what-youll-learn">
+                <h4>Lo que aprenderás</h4>
+                <ul>
+                    <li>Comprender los fundamentos lingüísticos del procesamiento del lenguaje</li>
+                    <li>Implementar y evaluar diferentes tipos de word embeddings</li>
+                    <li>Dominar técnicas de tokenización y preprocesamiento específicas para NLP</li>
+                    <li>Desarrollar modelos recurrentes (LSTM, GRU) con PyTorch</li>
+                    <li>Trabajar con arquitecturas transformer y BERT para tareas diversas</li>
+                    <li>Implementar sistemas de NER y búsqueda semántica</li>
+                    <li>Desarrollar y entrenar modelos de lenguaje generativos</li>
+                    <li>Aplicar técnicas avanzadas de PEFT y optimización para LLMs</li>
+                </ul>
+            </div>
+            
+            <div class="prerequisites">
+                <h4>Prerrequisitos</h4>
+                <ul>
+                    <li>Sólidos conocimientos de programación en Python</li>
+                    <li>Fundamentos de álgebra lineal y estadística</li>
+                    <li>Comprensión básica de redes neuronales y deep learning</li>
+                    <li>Familiaridad con conceptos de procesamiento de texto</li>
+                    <li>Experiencia previa con bibliotecas como NumPy y Pandas</li>
+                </ul>
+            </div>
+            
+            <div class="session" id="nlp-sesion1">
+                <div class="session-header">
+                    <h3 class="session-title">Sesión 1: Introducción al NLP</h3>
+                    <p class="session-description">Fundamentos del procesamiento del lenguaje natural y su evolución histórica.</p>
+                </div>
+                
+                <div class="session-content">
+                    <div class="time-distribution">
+                        <h4 class="time-title">Distribución del tiempo (3 horas):</h4>
+                        <ul>
+                            <li>Presentación del módulo y participantes (15 min)</li>
+                            <li>Primer bloque: Fundamentos del lenguaje (75 min)</li>
+                            <li>Descanso (15 min)</li>
+                            <li>Segundo bloque: Representación inicial del texto (75 min)</li>
+                            <li>Explicación de ejercicios para casa (15 min)</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="content-block">
+                        <h4 class="block-title">Primer bloque: Fundamentos del lenguaje</h4>
+                        <ul>
+                            <li>Historia y evolución del NLP: desde enfoques basados en reglas hasta deep learning</li>
+                            <li>Descripción formal del lenguaje: sintaxis, semántica y pragmática</li>
+                            <li>Niveles de análisis lingüístico: fonológico, morfológico, sintáctico, semántico, pragmático</li>
+                            <li>Desafíos específicos del procesamiento del lenguaje: ambigüedad, contexto, evolución</li>
+                            <li>Tareas fundamentales del NLP: clasificación, traducción, generación, comprensión</li>
+                            <li>Aplicaciones actuales y futuras del NLP: asistentes, análisis, generación, multimodal</li>
+                            <li><em>Discusión sobre la estructura del lenguaje natural y sus complejidades</em></li>
+                        </ul>
+                        
+                        <h4 class="block-title">Segundo bloque: Representación inicial del texto</h4>
+                        <ul>
+                            <li>Preprocesamiento básico: tokenización, normalización, stemming, lemmatization</li>
+                            <li>Enfoques tradicionales: Bag of Words, TF-IDF - implementación y limitaciones</li>
+                            <li>Introducción a word embeddings: motivación y principios fundamentales</li>
+                            <li>Word2Vec: arquitecturas CBOW y Skip-gram - intuición e implementación</li>
+                            <li>Evaluación de representaciones: analogías, similaridad, clustering</li>
+                            <li>Limitaciones de los modelos iniciales: polisemia, contexto, composicionalidad</li>
+                            <li><em>Ejercicios prácticos con representaciones básicas y análisis de resultados</em></li>
+                        </ul>
+                        
+                        <h4 class="block-title">Ejercicio para casa</h4>
+                        <ul>
+                            <li>Configuración del entorno para NLP: bibliotecas y frameworks esenciales</li>
+                            <li>Implementación de análisis básico con Bag of Words y TF-IDF en un corpus elegido</li>
+                            <li>Exploración inicial de word embeddings pre-entrenados (Word2Vec, GloVe)</li>
+                            <li>Visualización y análisis de relaciones entre palabras en espacios vectoriales</li>
+                            <li><em>Documentación detallada de resultados, observaciones y limitaciones identificadas</em></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="session" id="nlp-sesion2">
+                <div class="session-header">
+                    <h3 class="session-title">Sesión 2: Representaciones vectoriales</h3>
+                    <p class="session-description">Profundización en embeddings y técnicas avanzadas de representación del lenguaje.</p>
+                </div>
+                
+                <div class="session-content">
+                    <div class="time-distribution">
+                        <h4 class="time-title">Distribución del tiempo (3 horas):</h4>
+                        <ul>
+                            <li>Revisión de ejercicios de la sesión anterior (15 min)</li>
+                            <li>Primer bloque: Word embeddings avanzados (75 min)</li>
+                            <li>Descanso (15 min)</li>
+                            <li>Segundo bloque: Representaciones contextuales (75 min)</li>
+                            <li>Explicación de ejercicios para casa (15 min)</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="content-block">
+                        <h4 class="block-title">Primer bloque: Word embeddings avanzados</h4>
+                        <ul>
+                            <li>Más allá de Word2Vec: avances en representaciones vectoriales estáticas</li>
+                            <li>GloVe: fundamentos matemáticos, entrenamiento e implementación</li>
+                            <li>FastText: manejo de palabras desconocidas y morfología</li>
+                            <li>Embeddings especializados: dependencia sintáctica, retrofitting semántico</li>
+                            <li>Evaluación rigurosa de embeddings: analogías, similaridad, clustering</li>
+                            <li>Alineamiento multilingüe: técnicas para mapear embeddings entre idiomas</li>
+                            <li>Debiasing: detección y mitigación de sesgos en representaciones</li>
+                            <li>Visualización y análisis de espacios vectoriales: técnicas y herramientas</li>
+                            <li><em>Ejercicios prácticos: evaluación comparativa de diferentes embeddings</em></li>
+                        </ul>
+                        
+                        <h4 class="block-title">Segundo bloque: Representaciones contextuales</h4>
+                        <ul>
+                            <li>Limitaciones de embeddings estáticos: polisemia, contexto, actualización</li>
+                            <li>Modelos de lenguaje como representaciones: fundamentos y evolución</li>
+                            <li>ELMo: arquitectura, bidireccionalidad y representaciones por capas</li>
+                            <li>Finetuning vs feature extraction: estrategias para diferentes tareas</li>
+                            <li>ULMFiT: transfer learning efectivo para NLP</li>
+                            <li>Implementación con bibliotecas modernas: datasets, preprocesamiento, extracción</li>
+                            <li>Análisis de representaciones contextuales: probing, visualización</li>
+                            <li>Combinación de embeddings estáticos y contextuales: arquitecturas híbridas</li>
+                            <li><em>Demostración práctica: extracción de representaciones contextuales para análisis</em></li>
+                        </ul>
+                        
+                        <h4 class="block-title">Ejercicio para casa</h4>
+                        <ul>
+                            <li>Implementación y evaluación comparativa de tres tipos diferentes de embeddings</li>
+                            <li>Análisis de representaciones para un conjunto de palabras polisémicas en diferentes contextos</li>
+                            <li>Desarrollo de un sistema simple que utilice embeddings para una tarea específica</li>
+                            <li>Visualización y análisis de estructuras en el espacio vectorial</li>
+                            <li>Documentación detallada de resultados y análisis crítico de cada enfoque</li>
+                            <li><em>Desafío adicional: implementación de un método de debiasing para embeddings</em></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="resource-card">
+                        <h4>Recursos complementarios</h4>
+                        <ul>
+                            <li><a href="#" class="resource-link">Guía completa de implementación y evaluación de embeddings</a></li>
+                            <li><a href="#" class="resource-link">Colección de embeddings pre-entrenados y herramientas de análisis</a></li>
+                            <li><a href="#" class="resource-link">Tutorial: Técnicas de visualización para espacios vectoriales semánticos</a></li>
+                            <li><a href="#" class="resource-link">Paper: "Evaluación sistemática de representaciones contextuales"</a></li>
+                            <li><a href="#" class="resource-link">Herramientas para detección y mitigación de sesgos en embeddings</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="session" id="nlp-sesion3">
+                <div class="session-header">
+                    <h3 class="session-title">Sesión 3: PyTorch para NLP</h3>
+                    <p class="session-description">Implementación de modelos de NLP con PyTorch y torchtext.</p>
+                </div>
+                
+                <div class="session-content">
+                    <div class="time-distribution">
+                        <h4 class="time-title">Distribución del tiempo (3 horas):</h4>
+                        <ul>
+                            <li>Repaso de conceptos clave (15 min)</li>
+                            <li>Primer bloque: Fundamentos de PyTorch (75 min)</li>
+                            <li>Descanso (15 min)</li>
+                            <li>Segundo bloque: Redes recurrentes (75 min)</li>
+                            <li>Explicación de ejercicios para casa (15 min)</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="content-block">
+                        <h4 class="block-title">Primer bloque: Fundamentos de PyTorch</h4>
+                        <ul>
+                            <li>Introducción a PyTorch para NLP: filosofía, estructura y ventajas</li>
+                            <li>Tensores: creación, manipulación, operaciones y broadcasting</li>
+                            <li>Autograd: diferenciación automática y cálculo de gradientes</li>
+                            <li>Construcción de módulos: nn.Module, capas predefinidas y custom layers</li>
+                            <li>Manejo de datos textuales: tokenización, vocabularios, padding</li>
+                            <li>Datasets y DataLoaders para NLP: diseño e implementación</li>
+                            <li>Pipeline de entrenamiento: ciclo completo, optimizadores, scheduling</li>
+                            <li>Debugging y monitoreo: técnicas específicas para modelos de NLP</li>
+                            <li><em>Ejercicios prácticos: implementación de componentes básicos para NLP</em></li>
+                        </ul>
+                        
+                        <h4 class="block-title">Segundo bloque: Redes recurrentes</h4>
+                        <ul>
+                            <li>Fundamentos de procesamiento secuencial: memoria, contexto y dependencias</li>
+                            <li>Arquitectura RNN básica: forward pass, backpropagation through time</li>
+                            <li>Problemas de entrenamiento: vanishing y exploding gradients</li>
+                            <li>LSTM: arquitectura detallada, gates y flujo de información</li>
+                            <li>GRU: simplificación, eficiencia y comparación con LSTM</li>
+                            <li>Bidireccionalidad: implementación y ventajas para diferentes tareas</li>
+                            <li>Arquitecturas encoder-decoder: diseño para secuencia a secuencia</li>
+                            <li>Mecanismos de atención en RNNs: tipos e implementación</li>
+                            <li>Aplicaciones prácticas: clasificación, tagging, generation</li>
+                            <li><em>Implementación guiada: construcción de un modelo LSTM bidireccional</em></li>
+                        </ul>
+                        
+                        <h4 class="block-title">Ejercicio para casa</h4>
+                        <ul>
+                            <li>Implementación de un modelo RNN/LSTM para una tarea de clasificación de textos</li>
+                            <li>Experimentación con diferentes variantes: unidireccional vs bidireccional, capas, dimensiones</li>
+                            <li>Análisis del comportamiento de la red: activaciones, atención, aprendizaje</li>
+                            <li>Evaluación comparativa con modelos baseline (no neuronales)</li>
+                            <li>Documentación detallada del proceso, resultados y análisis de errores</li>
+                            <li><em>Desafío adicional: implementación de un modelo seq2seq básico con mecanismo de atención</em></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="resource-card">
+                        <h4>Recursos complementarios</h4>
+                        <ul>
+                            <li><a href="#" class="resource-link">Guía completa de PyTorch para NLP: del básico al avanzado</a></li>
+                            <li><a href="#" class="resource-link">Repositorio de implementaciones de modelos recurrentes</a></li>
+                            <li><a href="#" class="resource-link">Tutorial: Debugging efectivo de modelos RNN/LSTM</a></li>
+                            <li><a href="#" class="resource-link">Paper: "Análisis comparativo de arquitecturas recurrentes modernas"</a></li>
+                            <li><a href="#" class="resource-link">Visualizaciones interactivas del funcionamiento interno de LSTMs</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="session" id="nlp-sesion4">
+                <div class="session-header">
+                    <h3 class="session-title">Sesión 4: BERT y Transformers</h3>
+                    <p class="session-description">Arquitectura transformer y modelos pre-entrenados basados en BERT.</p>
+                </div>
+                
+                <div class="session-content">
+                    <div class="time-distribution">
+                        <h4 class="time-title">Distribución del tiempo (3 horas):</h4>
+                        <ul>
+                            <li>Revisión de ejercicios y dudas (15 min)</li>
+                            <li>Primer bloque: Arquitectura Transformer (75 min)</li>
+                            <li>Descanso (15 min)</li>
+                            <li>Segundo bloque: BERT y sus variantes (75 min)</li>
+                            <li>Explicación de ejercicios para casa (15 min)</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="session" id="nlp-sesion5">
+                <div class="session-header">
+                    <h3 class="session-title">Sesión 5: NER y búsqueda semántica</h3>
+                    <p class="session-description">Reconocimiento de entidades y sistemas de recuperación de información.</p>
+                </div>
+                
+                <div class="session-content">
+                    <div class="time-distribution">
+                        <h4 class="time-title">Distribución del tiempo (3 horas):</h4>
+                        <ul>
+                            <li>Recapitulación de conceptos previos (15 min)</li>
+                            <li>Primer bloque: Reconocimiento de entidades (75 min)</li>
+                            <li>Descanso (15 min)</li>
+                            <li>Segundo bloque: Sistemas de búsqueda semántica (75 min)</li>
+                            <li>Explicación de ejercicios para casa (15 min)</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="session" id="nlp-sesion6">
+                <div class="session-header">
+                    <h3 class="session-title">Sesión 6: Clasificación de textos</h3>
+                    <p class="session-description">Técnicas avanzadas para clasificación y análisis de sentimiento.</p>
+                </div>
+                
+                <div class="session-content">
+                    <div class="time-distribution">
+                        <h4 class="time-title">Distribución del tiempo (3 horas):</h4>
+                        <ul>
+                            <li>Revisión de implementaciones (15 min)</li>
+                            <li>Primer bloque: Clasificación de textos (75 min)</li>
+                            <li>Descanso (15 min)</li>
+                            <li>Segundo bloque: Análisis de sentimiento (75 min)</li>
+                            <li>Explicación de ejercicios para casa (15 min)</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="session" id="nlp-sesion7">
+                <div class="session-header">
+                    <h3 class="session-title">Sesión 7: Modelos generativos</h3>
+                    <p class="session-description">LLMs y arquitecturas generativas para producción de texto.</p>
+                </div>
+                
+                <div class="session-content">
+                    <div class="time-distribution">
+                        <h4 class="time-title">Distribución del tiempo (3 horas):</h4>
+                        <ul>
+                            <li>Recapitulación de técnicas aprendidas (15 min)</li>
+                            <li>Primer bloque: Arquitecturas generativas (75 min)</li>
+                            <li>Descanso (15 min)</li>
+                            <li>Segundo bloque: Fine-tuning y prompting (75 min)</li>
+                            <li>Instrucciones para proyecto final (15 min)</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="session" id="nlp-sesion8">
+                <div class="session-header">
+                    <h3 class="session-title">Sesión 8: Técnicas avanzadas</h3>
+                    <p class="session-description">Optimización, PEFT y aplicaciones avanzadas de NLP.</p>
+                </div>
+                
+                <div class="session-content">
+                    <div class="time-distribution">
+                        <h4 class="time-title">Distribución del tiempo (3 horas):</h4>
+                        <ul>
+                            <li>Resolución de dudas finales (30 min)</li>
+                            <li>Presentación de proyectos (90 min)</li>
+                            <li>Discusión sobre el futuro del NLP (30 min)</li>
+                            <li>Cierre del módulo y evaluación (30 min)</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Back to Top Button -->
+    <a href="#" class="back-to-top" id="backToTop" aria-label="Volver arriba">↑</a>
+
+    <!-- JavaScript -->
+    <script>
+        // Variables para tracking de estado
+        let currentSection = '';
+        let isMobileMenuOpen = false;
+        
+        // Manejador para barra de progreso y botón de volver arriba
+        function handleScroll() {
+            const mainContent = document.getElementById('main-content');
+            const winScroll = mainContent.scrollTop;
+            const height = mainContent.scrollHeight - mainContent.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            
+            document.getElementById("progressBar").style.width = scrolled + "%";
+            
+            // Controlar visibilidad del botón "volver arriba"
+            if (winScroll > 300) {
+                document.getElementById("backToTop").style.display = "flex";
+            } else {
+                document.getElementById("backToTop").style.display = "none";
+            }
+            
+            // Resaltar sección activa durante el scroll
+            highlightActiveSection();
+        }
+        
+        // Iniciar listeners al cargar
+        document.addEventListener('DOMContentLoaded', function() {
+            // Asignar eventos
+            setupEventListeners();
+            
+            // Inicialmente, expandir solo el primer módulo y colapsar los demás
+            initializeMenu();
+            
+            // Resaltar sección activa inicial
+            setTimeout(highlightActiveSection, 100);
+        });
+        
+        // Configurar todos los event listeners
+        function setupEventListeners() {
+            // Event listener para scroll en el contenido principal
+            document.getElementById('main-content').addEventListener('scroll', handleScroll);
+            
+            // Event listener para el botón "volver arriba"
+            document.getElementById('backToTop').addEventListener('click', function(e) {
+                e.preventDefault();
+                document.getElementById('main-content').scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+            
+            // Event listeners para cabeceras de sección del menú
+            document.querySelectorAll('.nav-heading').forEach(heading => {
+                heading.addEventListener('click', toggleSection);
+                // Soporte para accesibilidad con teclado
+                heading.addEventListener('keydown', function(e) {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        toggleSection.call(this);
+                    }
+                });
+            });
+            
+            // Event listener para el botón de menú móvil
+            document.getElementById('sidebar-toggle').addEventListener('click', toggleMobileMenu);
+            
+            // Event listeners para enlaces internos (navegación suave)
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', smoothScrollToTarget);
+            });
+        }
+        
+        // Inicializar el estado del menú
+        function initializeMenu() {
+            // Expandir el primer módulo, colapsar los demás
+            document.querySelectorAll('.nav-heading').forEach((heading, index) => {
+                const targetId = heading.getAttribute('data-target');
+                const sublinksElement = document.getElementById(targetId);
+                
+                if (index === 0) {
+                    // Primer módulo expandido
+                    sublinksElement.classList.remove('collapsed');
+                    heading.classList.remove('collapsed');
+                    heading.setAttribute('aria-expanded', 'true');
+                } else {
+                    // Resto de módulos colapsados
+                    sublinksElement.classList.add('collapsed');
+                    heading.classList.add('collapsed');
+                    heading.setAttribute('aria-expanded', 'false');
+                }
+            });
+        }
+        
+        // Alternar entre expandir/colapsar sección
+        function toggleSection() {
+            const targetId = this.getAttribute('data-target');
+            const sublinksElement = document.getElementById(targetId);
+            
+            // Toggle the collapsed state
+            const isCollapsed = sublinksElement.classList.toggle('collapsed');
+            this.classList.toggle('collapsed');
+            
+            // Actualizar atributo aria-expanded para accesibilidad
+            this.setAttribute('aria-expanded', !isCollapsed);
+        }
+        
+        // Alternar el menú móvil
+        function toggleMobileMenu() {
+            const sidebar = document.getElementById('sidebar');
+            isMobileMenuOpen = !isMobileMenuOpen;
+            
+            sidebar.classList.toggle('show');
+            this.classList.toggle('active');
+            
+            // Cambiar texto basado en estado
+            if (isMobileMenuOpen) {
+                this.textContent = '✕ Cerrar';
+                this.setAttribute('aria-label', 'Cerrar menú');
+            } else {
+                this.textContent = '☰ Menú';
+                this.setAttribute('aria-label', 'Abrir menú');
+            }
+        }
+        
+        // Scroll suave a la sección objetivo
+        function smoothScrollToTarget(e) {
+            e.preventDefault();
+            
+            // Cerrar menú móvil si está abierto
+            if (window.innerWidth <= 768 && isMobileMenuOpen) {
+                toggleMobileMenu();
+            }
+            
+            // Obtener el elemento objetivo
+            const targetId = this.getAttribute('href');
+            const targetElement = document.querySelector(targetId);
+            
+            if (targetElement) {
+                // Calcular la posición ajustada para scroll
+                const mainContent = document.getElementById('main-content');
+                const targetPosition = targetElement.offsetTop - 20;
+                
+                // Scroll suave
+                mainContent.scrollTo({
+                    top: targetPosition,
+                    behavior: 'smooth'
+                });
+                
+                // Actualizar URL sin recargar la página
+                history.pushState(null, null, targetId);
+                
+                // Actualizar enlaces activos manualmente
+                updateActiveLinks(this);
+            }
+        }
+        
+        // Actualizar el estado activo de los enlaces
+        function updateActiveLinks(activeLink) {
+            // Quitar clase active de todos los enlaces
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.remove('active');
+            });
+            
+            // Añadir clase active al enlace actual
+            activeLink.classList.add('active');
+            
+            // Si es un subenlace, expandir su sección padre si está colapsada
+            if (activeLink.classList.contains('nav-sublink')) {
+                const parent = activeLink.closest('.nav-sublinks');
+                if (parent && parent.classList.contains('collapsed')) {
+                    parent.classList.remove('collapsed');
+                    
+                    const heading = document.querySelector(`[data-target="${parent.id}"]`);
+                    if (heading) {
+                        heading.classList.remove('collapsed');
+                        heading.setAttribute('aria-expanded', 'true');
+                    }
+                }
+            }
+        }
+        
+        // Resaltar la sección activa durante el scroll
+        function highlightActiveSection() {
+            const mainContent = document.getElementById('main-content');
+            const sections = document.querySelectorAll('.session, #inicio, #fundamentos, #analisis, #vision, #nlp');
+            let foundActive = false;
+            
+            // Recorrer secciones para encontrar la activa
+            sections.forEach(section => {
+                const rect = section.getBoundingClientRect();
+                const offsetTop = rect.top + mainContent.scrollTop - mainContent.offsetTop;
+                
+                // Considerar una sección activa si su parte superior está cerca de la parte superior del viewport
+                if (mainContent.scrollTop >= offsetTop - 100 && !foundActive) {
+                    updateActiveSection(section.id);
+                    foundActive = true;
+                }
+            });
+            
+            // Si no se encontró ninguna sección activa (estamos en la parte superior)
+            if (!foundActive && mainContent.scrollTop < 100) {
+                updateActiveSection('inicio');
+            }
+        }
+        
+        // Actualizar la sección activa en el menú
+        function updateActiveSection(sectionId) {
+            // Si la sección ya está activa, no hacer nada
+            if (currentSection === sectionId) return;
+            
+            // Actualizar sección actual
+            currentSection = sectionId;
+            
+            // Quitar clase active de todos los enlaces
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.remove('active');
+            });
+            
+            // Añadir clase active al enlace correspondiente
+            const activeLink = document.querySelector(`.nav-link[href="#${sectionId}"]`);
+            if (activeLink) {
+                activeLink.classList.add('active');
+                
+                // Si es un subenlace, asegurar que su contenedor esté expandido
+                if (activeLink.classList.contains('nav-sublink')) {
+                    const parent = activeLink.closest('.nav-sublinks');
+                    if (parent && parent.classList.contains('collapsed')) {
+                        parent.classList.remove('collapsed');
+                        
+                        const heading = document.querySelector(`[data-target="${parent.id}"]`);
+                        if (heading) {
+                            heading.classList.remove('collapsed');
+                            heading.setAttribute('aria-expanded', 'true');
+                        }
+                    }
+                }
+                
+                // Si el enlace está fuera del viewport del sidebar, hacerlo visible
+                const sidebar = document.getElementById('sidebar');
+                const linkRect = activeLink.getBoundingClientRect();
+                const sidebarRect = sidebar.getBoundingClientRect();
+                
+                if (linkRect.top < sidebarRect.top || linkRect.bottom > sidebarRect.bottom) {
+                    activeLink.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }
+            }
+        }
+    </script>
+</body>
+</html>
