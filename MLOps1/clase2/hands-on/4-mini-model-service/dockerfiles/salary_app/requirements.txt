@@ -1,0 +1,7 @@
+pandas
+numpy
+SQLAlchemy
+streamlit
+psycopg2-binary
+joblib
+scikit-learn==1.5.0
