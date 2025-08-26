@@ -19,3 +19,24 @@
 [submodule "AMq/TP"]
 	path = AMq/TP
 	url = https://github.com/abrilnoguera/TP-AMq
+[submodule "TP1"]
+	path = TP1
+	url = https://github.com/abrilnoguera/TP1-AP
+[submodule "AP/TP1"]
+	path = AP/TP1
+	url = https://github.com/abrilnoguera/TP1-AP
+[submodule "AP/TP2"]
+	path = AP/TP2
+	url = https://github.com/abrilnoguera/TP2-AP
+[submodule "VpC1/TP1"]
+	path = VpC1/TP1
+	url = https://github.com/abrilnoguera/TP1-VpC1
+[submodule "VpC1/TP2"]
+	path = VpC1/TP2
+	url = https://github.com/abrilnoguera/TP2-VpC1
+[submodule "VpC1/TP3"]
+	path = VpC1/TP3
+	url = https://github.com/abrilnoguera/TP3-VpC1
+[submodule "MLOps1/TP"]
+	path = MLOps1/TP
+	url = https://github.com/abrilnoguera/TP-MLOps1
